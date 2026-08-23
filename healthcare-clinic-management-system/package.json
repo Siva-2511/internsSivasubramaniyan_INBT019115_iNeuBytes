@@ -1,0 +1,25 @@
+{
+  "name": "carepoint-healthcare-management-system",
+  "version": "1.0.0",
+  "description": "CarePoint Hospital & Clinic Management System - Full Stack Node.js/Express & REST API (Major Project - WBINB20726)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "healthcare",
+    "clinic-management",
+    "hospital-system",
+    "express",
+    "nodejs",
+    "crud",
+    "rest-api"
+  ],
+  "author": "Sivasubramaniyan G",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

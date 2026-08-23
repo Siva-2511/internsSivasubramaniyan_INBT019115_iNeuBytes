@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarePoint Hospital - Medical Departments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-notice-bar">
+        <div class="container d-flex-between">
+            <div><span><i class="fa-solid fa-hospital"></i> CarePoint Hospital &bull; Medical Departments Directory</span></div>
+            <div><span><i class="fa-solid fa-phone"></i> Emergency: 044-24567890</span></div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="logo-text">
+                    <span>Care<strong>Point</strong></span>
+                    <small>Clinical Specialties</small>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="departments.html" class="active">Departments</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions" id="authNavContainer">
+                <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Specialties Directory</span>
+                <h2>Hospital Departments & Services</h2>
+                <p>Complete directory of our 8 clinical departments with head physicians, block locations, and consultation options.</p>
+            </div>
+            <div class="grid-4-cols" id="deptPageGrid">
+                <!-- Loaded via JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container text-center">
+            <p>&copy; 2026 CarePoint Hospital & Medical Center. Course ID: WBINB20726 (Major Project).</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await API.getDepartments();
+                const depts = res.data || [];
+                const grid = document.getElementById('deptPageGrid');
+                grid.innerHTML = '';
+
+                const iconMap = {
+                    'General Medicine': 'fa-stethoscope',
+                    'Pediatrics': 'fa-baby',
+                    'Cardiology': 'fa-heart-pulse',
+                    'Dermatology': 'fa-hand-dots',
+                    'Orthopedics': 'fa-bone',
+                    'Neurology': 'fa-brain',
+                    'Ophthalmology': 'fa-eye',
+                    'ENT': 'fa-head-side-cough'
+                };
+
+                depts.forEach(d => {
+                    const card = document.createElement('div');
+                    card.className = 'service-card';
+                    const icon = iconMap[d.name] || 'fa-hospital';
+                    card.innerHTML = `
+                        <div class="service-icon"><i class="fa-solid ${icon}"></i></div>
+                        <h3>${d.name}</h3>
+                        <p style="margin-bottom: 0.75rem;">${d.description || 'Specialized clinical care & diagnostics.'}</p>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+                            <div><i class="fa-solid fa-user-doctor"></i> <strong>HOD:</strong> ${d.hod}</div>
+                            <div><i class="fa-solid fa-location-dot"></i> <strong>Location:</strong> ${d.location}</div>
+                        </div>
+                        <span class="status-pill ${d.feeType.includes('Free') ? 'status-confirmed' : 'status-completed'}">${d.feeType}</span>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch(e) { console.error(e); }
+        });
+    </script>
+</body>
+</html>

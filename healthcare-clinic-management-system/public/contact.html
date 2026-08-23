@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarePoint Hospital - Contact & Emergency Desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-notice-bar">
+        <div class="container d-flex-between">
+            <div><span><i class="fa-solid fa-hospital"></i> CarePoint Hospital &bull; 24x7 Emergency Contact</span></div>
+            <div><span><i class="fa-solid fa-phone"></i> Emergency Desk: 044-24567890</span></div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="logo-text">
+                    <span>Care<strong>Point</strong></span>
+                    <small>Contact & Helplines</small>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="nav-actions" id="authNavContainer">
+                <a href="login.html" class="btn btn-outline btn-sm">Login</a>
+                <a href="register.html" class="btn btn-primary btn-sm">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Emergency & Reception</span>
+                <h2>Hospital Contact & Support</h2>
+                <p>Reach out for medical enquiries, emergency ambulance requests, and general appointment assistance.</p>
+            </div>
+            
+            <div class="grid-2-cols">
+                <!-- Contact Info Cards -->
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                        <h3>24x7 Emergency Helplines</h3>
+                        <p><strong>Primary Emergency:</strong> 044-24567890</p>
+                        <p><strong>Toll-Free Helpline:</strong> 1800-200-4567</p>
+                        <p><strong>Trauma & Ambulance:</strong> 044-24567899</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <h3>Hospital Location</h3>
+                        <p>45 Health Avenue, Medical Enclave</p>
+                        <p>Chennai, Tamil Nadu, 600001, India</p>
+                        <p style="margin-top: 0.5rem;"><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> reception@carepoint-hospital.org</p>
+                    </div>
+                </div>
+
+                <!-- Send Message Form -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-regular fa-paper-plane"></i> Send Enquiry Message</h3>
+                        <p>Our reception team will get back to you within 2 business hours</p>
+                    </div>
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Your Name *</label>
+                                <input type="text" placeholder="e.g. Ramesh Kumar" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Contact Number *</label>
+                                <input type="tel" placeholder="e.g. 9876543210" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Department of Interest</label>
+                            <select>
+                                <option>General Medicine (Free OPD)</option>
+                                <option>Pediatrics (Free OPD)</option>
+                                <option>Cardiology</option>
+                                <option>Dermatology</option>
+                                <option>Orthopedics</option>
+                                <option>Neurology</option>
+                                <option>Ophthalmology</option>
+                                <option>ENT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message / Clinical Question *</label>
+                            <textarea rows="4" placeholder="How can our clinical team help you today?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Send Enquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div class="container text-center">
+            <p>&copy; 2026 CarePoint Hospital & Medical Center. Course ID: WBINB20726 (Major Project).</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showToast('Thank you! Your enquiry has been received by the reception team.');
+            document.getElementById('contactForm').reset();
+        });
+    </script>
+</body>
+</html>

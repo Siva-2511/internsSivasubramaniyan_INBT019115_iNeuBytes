@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarePoint Hospital - Administrator Management Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-notice-bar">
+        <div class="container d-flex-between">
+            <div><span><i class="fa-solid fa-hospital"></i> CarePoint Hospital &bull; Hospital Central Administration Portal</span></div>
+            <div><span><i class="fa-solid fa-user-shield"></i> Master Operations Controller</span></div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="logo-text">
+                    <span>Care<strong>Point</strong></span>
+                    <small>Administrator Portal</small>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="contact.html">Emergency & Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button onclick="Auth.logout()" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="dashboard-container container">
+
+        <!-- ADMIN BANNER -->
+        <div class="user-banner">
+            <div>
+                <h2 id="admBannerName">Sivasubramaniyan G</h2>
+                <p>Hospital Administrator &bull; CarePoint Hospital & Medical Center</p>
+            </div>
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="openDoctorModal()"><i class="fa-solid fa-user-plus"></i> Add Doctor</button>
+                <button class="btn btn-outline" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" onclick="openPatientModal()"><i class="fa-solid fa-hospital-user"></i> Register Patient</button>
+                <button class="btn btn-outline" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" onclick="openAppointmentModal()"><i class="fa-regular fa-calendar-plus"></i> Schedule OPD</button>
+            </div>
+        </div>
+
+        <!-- ADMIN SUBTABS NAVIGATION -->
+        <div class="admin-subtabs">
+            <button class="subtab-btn active" data-target="admin-overview"><i class="fa-solid fa-chart-pie"></i> System Overview</button>
+            <button class="subtab-btn" data-target="admin-doctors"><i class="fa-solid fa-user-doctor"></i> Manage Doctors (<span id="tabCountDocs">0</span>)</button>
+            <button class="subtab-btn" data-target="admin-patients"><i class="fa-solid fa-hospital-user"></i> Manage Patients (<span id="tabCountPats">0</span>)</button>
+            <button class="subtab-btn" data-target="admin-appointments"><i class="fa-regular fa-calendar-check"></i> Manage Appointments (<span id="tabCountApts">0</span>)</button>
+            <button class="subtab-btn" data-target="admin-departments"><i class="fa-solid fa-stethoscope"></i> Departments</button>
+            <button class="subtab-btn" data-target="admin-reports"><i class="fa-solid fa-chart-line"></i> Analytics & Reports</button>
+        </div>
+
+        <!-- TAB 1: SYSTEM OVERVIEW -->
+        <div class="subtab-content active" id="admin-overview">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fa-solid fa-user-doctor"></i></div>
+                    <div>
+                        <span class="stat-label">Total Doctors</span>
+                        <h3 id="statTotalDocs">0</h3>
+                        <small class="text-muted"><span id="statFreeDocs">0</span> Free OPD Doctors</small>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fa-solid fa-hospital-user"></i></div>
+                    <div>
+                        <span class="stat-label">Registered Patients</span>
+                        <h3 id="statTotalPatients">0</h3>
+                        <small class="text-muted">Active Medical Files</small>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i class="fa-regular fa-calendar-check"></i></div>
+                    <div>
+                        <span class="stat-label">Total Appointments</span>
+                        <h3 id="statTotalApts">0</h3>
+                        <small class="text-muted"><span id="statConfirmedApts">0</span> Active / Confirmed</small>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon amber"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div>
+                        <span class="stat-label">Departments</span>
+                        <h3 id="statTotalDepts">8</h3>
+                        <small class="text-muted">Clinical Specialties</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2-cols" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <div class="card-header d-flex-between">
+                        <div>
+                            <h3><i class="fa-regular fa-clock"></i> Recent OPD Appointments</h3>
+                            <p>Latest patient consultations scheduled</p>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="switchAdminTab('admin-appointments')">View All</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>APT ID</th>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Department</th>
+                                    <th>Date/Slot</th>
+                                    <th>Fee</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentAptsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-hospital"></i> Department Load Distribution</h3>
+                        <p>Specialist allocation across medical departments</p>
+                    </div>
+                    <div id="deptDistributionList" style="display: flex; flex-direction: column; gap: 0.85rem;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: MANAGE DOCTORS -->
+        <div class="subtab-content" id="admin-doctors">
+            <div class="toolbar-box d-flex-between">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="docSearchInput" placeholder="Search doctors by name, department, or qualification...">
+                </div>
+                <div class="toolbar-actions">
+                    <select id="docDeptFilter">
+                        <option value="All">All Departments</option>
+                        <option value="General Medicine">General Medicine</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Ophthalmology">Ophthalmology</option>
+                        <option value="ENT">ENT</option>
+                    </select>
+                    <select id="docFeeFilter">
+                        <option value="All">All Fees</option>
+                        <option value="Free">Free OPD (₹0)</option>
+                        <option value="Paid">Specialist Paid OPD</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm" onclick="openDoctorModal()"><i class="fa-solid fa-user-plus"></i> Add Doctor</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Doctor ID</th>
+                                <th>Doctor Name</th>
+                                <th>Department</th>
+                                <th>Qualification</th>
+                                <th>Experience</th>
+                                <th>Fee</th>
+                                <th>OPD Room</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminDoctorsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: MANAGE PATIENTS -->
+        <div class="subtab-content" id="admin-patients">
+            <div class="toolbar-box d-flex-between">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="patSearchInput" placeholder="Search patients by name, phone, email, or ID...">
+                </div>
+                <div class="toolbar-actions">
+                    <select id="patGenderFilter">
+                        <option value="All">All Genders</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm" onclick="openPatientModal()"><i class="fa-solid fa-hospital-user"></i> Register Patient</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Patient Name</th>
+                                <th>Age/Gender</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Blood Group</th>
+                                <th>Registered Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminPatientsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: MANAGE APPOINTMENTS -->
+        <div class="subtab-content" id="admin-appointments">
+            <div class="toolbar-box d-flex-between">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="aptSearchInput" placeholder="Search appointments by ID, patient, or doctor...">
+                </div>
+                <div class="toolbar-actions">
+                    <select id="aptStatusFilter">
+                        <option value="All">All Statuses</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <button class="btn btn-outline btn-sm" onclick="exportAppointmentsCSV()"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+                    <button class="btn btn-primary btn-sm" onclick="openAppointmentModal()"><i class="fa-regular fa-calendar-plus"></i> Schedule OPD</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>APT ID</th>
+                                <th>Patient Name</th>
+                                <th>Doctor Name</th>
+                                <th>Department</th>
+                                <th>Date & Time</th>
+                                <th>Fee</th>
+                                <th>Status</th>
+                                <th>Actions / Status Update</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminAptsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: DEPARTMENTS -->
+        <div class="subtab-content" id="admin-departments">
+            <div class="toolbar-box d-flex-between">
+                <div class="search-box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" id="deptSearchInput" placeholder="Search departments...">
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="openDeptModal()"><i class="fa-solid fa-plus"></i> Add Department</button>
+            </div>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Dept ID</th>
+                                <th>Department Name</th>
+                                <th>Head of Department (HOD)</th>
+                                <th>Doctors Count</th>
+                                <th>Room Location</th>
+                                <th>Fee Structure</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminDeptsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: REPORTS & ANALYTICS -->
+        <div class="subtab-content" id="admin-reports">
+            <div class="grid-2-cols">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-chart-pie"></i> Consultation Breakdown</h3>
+                        <p>Free General OPD vs Specialist Paid Consultations</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Total Appointments Booked:</span> <strong id="repTotalApts">0</strong></div>
+                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Free General OPD (₹0):</span> <strong style="color: var(--brand-green);" id="repFreeApts">0</strong></div>
+                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Specialist Paid OPD:</span> <strong id="repPaidApts">0</strong></div>
+                        <div class="d-flex-between" style="padding: 0.5rem 0;"><span>Completed Consultations:</span> <strong id="repCompletedApts">0</strong></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-hospital"></i> Clinical Operations</h3>
+                        <p>Hospital capacity and medical records</p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Active Clinical Departments:</span> <strong id="repActiveDepts">8</strong></div>
+                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>On-Duty Physicians:</span> <strong id="repOnDutyDocs">0</strong></div>
+                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Registered Patient Files:</span> <strong id="repPatientFiles">0</strong></div>
+                        <div class="d-flex-between" style="padding: 0.5rem 0;"><span>Emergency & Trauma:</span> <strong style="color: var(--brand-green);">24x7 Ready</strong></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card text-center" style="margin-top: 1.5rem; padding: 2rem;">
+                <h3><i class="fa-solid fa-print"></i> Generate Official Hospital Report</h3>
+                <p class="text-muted" style="margin: 0.5rem auto 1.25rem; max-width: 500px;">Generate and print official clinical operations, patient statistics, and appointment logs for hospital record-keeping.</p>
+                <button class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Administrative Report</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- DOCTOR MODAL (ADD / EDIT) -->
+    <div class="modal-overlay" id="doctorModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('doctorModal')">&times;</button>
+            <div class="modal-header">
+                <h3 id="docModalHeading"><i class="fa-solid fa-user-doctor"></i> Add Doctor</h3>
+                <p>Register a doctor on the hospital roster</p>
+            </div>
+            <form id="docForm">
+                <input type="hidden" id="docFormId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Doctor Name *</label>
+                        <input type="text" id="docInputName" placeholder="e.g. Dr. Rajesh Sharma" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Department *</label>
+                        <select id="docInputDept" required>
+                            <option value="General Medicine">General Medicine</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="ENT">ENT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Medical Qualification *</label>
+                        <input type="text" id="docInputQual" placeholder="e.g. MBBS, MD" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Experience (Years) *</label>
+                        <input type="number" id="docInputExp" min="1" max="50" placeholder="e.g. 10" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Consultation Fee (₹) * (0 for Free General OPD)</label>
+                        <input type="number" id="docInputFee" min="0" placeholder="0 or 600" required>
+                    </div>
+                    <div class="form-group">
+                        <label>OPD Room / Floor *</label>
+                        <input type="text" id="docInputRoom" placeholder="e.g. Room 201, 2nd Floor" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('doctorModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Doctor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- PATIENT MODAL (REGISTER / EDIT) -->
+    <div class="modal-overlay" id="patientModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('patientModal')">&times;</button>
+            <div class="modal-header">
+                <h3 id="patModalHeading"><i class="fa-solid fa-hospital-user"></i> Register Patient</h3>
+                <p>Add patient personal medical record</p>
+            </div>
+            <form id="patForm">
+                <input type="hidden" id="patFormId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Patient Full Name *</label>
+                        <input type="text" id="patInputName" placeholder="e.g. Ramesh Kumar" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number * (10 Digits)</label>
+                        <input type="tel" id="patInputPhone" placeholder="e.g. 9876543210" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="patInputEmail" placeholder="e.g. patient@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Age *</label>
+                        <input type="number" id="patInputAge" min="1" max="120" placeholder="e.g. 28" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Gender *</label>
+                        <select id="patInputGender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <select id="patInputBlood">
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('patientModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Patient</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- APPOINTMENT MODAL -->
+    <div class="modal-overlay" id="appointmentModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('appointmentModal')">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-regular fa-calendar-plus"></i> Schedule OPD Appointment</h3>
+                <p>Book outpatient consultation from administration desk</p>
+            </div>
+            <form id="admAppointmentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Doctor *</label>
+                        <select id="admDocSelect" required>
+                            <option value="">-- Choose Doctor --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" id="admDeptDisplay" readonly placeholder="Auto-filled">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Patient Full Name *</label>
+                        <input type="text" id="admPatientNameInput" placeholder="e.g. Sivasubramaniyan G" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Patient Phone Number *</label>
+                        <input type="tel" id="admPatientPhoneInput" placeholder="e.g. 9876543210" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Appointment Date *</label>
+                        <input type="date" id="admDateInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time Slot *</label>
+                        <input type="text" id="admSlotInput" placeholder="e.g. 10:30 AM" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('appointmentModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Schedule Appointment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DEPARTMENT MODAL -->
+    <div class="modal-overlay" id="deptModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('deptModal')">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-stethoscope"></i> Add Clinical Department</h3>
+                <p>Register clinical specialty</p>
+            </div>
+            <form id="admDeptForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Department Name *</label>
+                        <input type="text" id="admDeptNameInput" placeholder="e.g. Cardiology" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Head of Department (HOD) *</label>
+                        <input type="text" id="admDeptHodInput" placeholder="e.g. Dr. Rajesh Sharma" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Block / Floor Location *</label>
+                        <input type="text" id="admDeptLocationInput" placeholder="e.g. Block B, 2nd Floor" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fee Structure *</label>
+                        <select id="admDeptFeeTypeInput">
+                            <option value="Free General OPD">Free General OPD (₹0)</option>
+                            <option value="Specialist OPD">Specialist Paid OPD</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('deptModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Department</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
