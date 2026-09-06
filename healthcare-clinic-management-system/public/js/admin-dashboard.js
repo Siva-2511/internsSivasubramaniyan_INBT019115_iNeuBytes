@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const user = Auth.protectPage('admin');
     if (!user) return;
 
+    // Set admin name
+    document.getElementById('admBannerName').textContent = user.name || 'Administrator';
+
     // 2. Setup Subtab Switcher
     setupSubtabs();
 
@@ -21,7 +24,139 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 4. Setup Forms and Filters
     setupEventListeners();
+
+    // 5. Load live notifications
+    await loadNotifications();
+
+    // 6. Auto-refresh data + notifications every 30 seconds
+    setInterval(async () => {
+        await refreshAllData();
+        await loadNotifications();
+    }, 30000);
 });
+
+// ==========================================
+// NOTIFICATION SYSTEM
+// ==========================================
+function toggleNotificationMenu() {
+    const menu = document.getElementById('adminNotifMenu');
+    if (!menu) return;
+    const isVisible = menu.style.display !== 'none';
+    menu.style.display = isVisible ? 'none' : 'block';
+    if (!isVisible) loadNotifications();
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', (e) => {
+    const wrapper = document.querySelector('.notification-dropdown-wrapper');
+    if (wrapper && !wrapper.contains(e.target)) {
+        const menu = document.getElementById('adminNotifMenu');
+        if (menu) menu.style.display = 'none';
+    }
+});
+
+async function loadNotifications() {
+    try {
+        const [aptsRes, prescRes] = await Promise.all([
+            API.getAppointments(),
+            fetch('/api/prescriptions').then(r => r.json()).catch(() => ({ data: [] }))
+        ]);
+
+        const apts = aptsRes.data || [];
+        const prescriptions = prescRes.data || [];
+
+        const notifications = [];
+
+        // New confirmed appointments (today or recent)
+        const today = new Date().toISOString().split('T')[0];
+        const todayApts = apts.filter(a => a.date === today || a.status === 'Confirmed');
+        todayApts.slice(0, 3).forEach(apt => {
+            notifications.push({
+                type: 'booking',
+                color: '#059669',
+                icon: 'fa-calendar-check',
+                title: 'New OPD Booking',
+                message: `${apt.patientName} booked with ${apt.doctorName} (${apt.department}) — ${apt.date}`,
+                time: apt.date
+            });
+        });
+
+        // Cancelled appointments
+        const cancelled = apts.filter(a => a.status === 'Cancelled').slice(0, 2);
+        cancelled.forEach(apt => {
+            notifications.push({
+                type: 'cancel',
+                color: '#ef4444',
+                icon: 'fa-calendar-xmark',
+                title: 'Appointment Cancelled',
+                message: `${apt.patientName} cancelled appointment with ${apt.doctorName}`,
+                time: apt.date
+            });
+        });
+
+        // Completed consultations
+        const completed = apts.filter(a => a.status === 'Completed').slice(0, 2);
+        completed.forEach(apt => {
+            notifications.push({
+                type: 'completed',
+                color: '#2563eb',
+                icon: 'fa-stethoscope',
+                title: 'Consultation Completed',
+                message: `${apt.patientName} consultation completed by ${apt.doctorName}`,
+                time: apt.date
+            });
+        });
+
+        // Prescriptions issued
+        prescriptions.slice(0, 2).forEach(presc => {
+            notifications.push({
+                type: 'prescription',
+                color: '#d97706',
+                icon: 'fa-prescription',
+                title: 'Prescription Issued',
+                message: `Dr. ${presc.doctorName || 'Unknown'} prescribed for ${presc.patientName || 'Patient'} — ${presc.diagnosis || ''}`,
+                time: presc.date || ''
+            });
+        });
+
+        // Fallback if empty
+        if (notifications.length === 0) {
+            notifications.push({
+                type: 'info',
+                color: '#64748b',
+                icon: 'fa-circle-info',
+                title: 'No new alerts',
+                message: 'All systems are operating normally.',
+                time: today
+            });
+        }
+
+        // Update badge count
+        const badge = document.getElementById('adminNotifBadge');
+        if (badge) {
+            const count = Math.min(notifications.length, 9);
+            badge.textContent = count;
+            badge.style.display = count > 0 ? 'flex' : 'none';
+        }
+
+        // Render notification list
+        const list = document.getElementById('notifList');
+        if (list) {
+            list.innerHTML = notifications.map(n => `
+                <div style="font-size: 0.8rem; padding: 0.5rem 0.6rem; border-radius: 6px; background: #f8fafc; border-left: 3px solid ${n.color};">
+                    <div style="display:flex; align-items:center; gap:0.4rem; margin-bottom:0.2rem;">
+                        <i class="fa-solid ${n.icon}" style="color:${n.color}; font-size:0.75rem;"></i>
+                        <strong style="color:${n.color};">${n.title}</strong>
+                        ${n.time ? `<span style="margin-left:auto; color:#94a3b8; font-size:0.7rem;">${n.time}</span>` : ''}
+                    </div>
+                    <span style="color:#475569; line-height:1.4;">${n.message}</span>
+                </div>
+            `).join('');
+        }
+    } catch(e) {
+        console.error('Notification load error:', e);
+    }
+}
 
 function setupSubtabs() {
     document.querySelectorAll('.admin-subtabs .subtab-btn').forEach(btn => {
@@ -160,7 +295,16 @@ function renderDoctorsTable() {
         const tr = document.createElement('tr');
         const feeText = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD</strong>` : `₹${doc.fee}`;
 
+        const photoHtml = doc.avatar ? 
+            `<img src="${doc.avatar}" alt="${doc.name}" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">` : 
+            `<div style="width: 36px; height: 36px; border-radius: 50%; background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;"><i class="fa-solid fa-user-doctor"></i></div>`;
+
+        const resumeHtml = doc.resume ? 
+            `<a href="${doc.resume}" target="_blank" class="btn btn-outline btn-sm" style="font-size: 0.75rem; color: var(--brand-green);"><i class="fa-solid fa-file-pdf"></i> View Doc</a>` : 
+            `<span style="font-size: 0.75rem; color: #94a3b8;">${doc.license ? 'Lic: ' + doc.license : 'Pending'}</span>`;
+
         tr.innerHTML = `
+            <td>${photoHtml}</td>
             <td><strong>${doc.id}</strong></td>
             <td><strong>${doc.name}</strong></td>
             <td><span class="status-pill status-confirmed">${doc.department}</span></td>
@@ -168,6 +312,7 @@ function renderDoctorsTable() {
             <td>${doc.experience} Yrs</td>
             <td>${feeText}</td>
             <td>${doc.room}</td>
+            <td>${resumeHtml}</td>
             <td>
                 <div style="display: flex; gap: 0.35rem;">
                     <button class="btn btn-outline btn-sm" onclick="openDoctorModal('${doc.id}')" title="Edit Doctor"><i class="fa-solid fa-pen"></i></button>
@@ -195,6 +340,8 @@ function openDoctorModal(docId = null) {
         document.getElementById('docInputExp').value = doc.experience;
         document.getElementById('docInputFee').value = doc.fee;
         document.getElementById('docInputRoom').value = doc.room;
+        if (document.getElementById('docInputAvatar')) document.getElementById('docInputAvatar').value = doc.avatar || '';
+        if (document.getElementById('docInputResume')) document.getElementById('docInputResume').value = doc.resume || '';
     } else {
         heading.innerHTML = `<i class="fa-solid fa-user-doctor"></i> Add Doctor`;
         idInput.value = '';
@@ -232,9 +379,17 @@ function renderPatientsTable() {
 
     filtered.forEach(p => {
         const tr = document.createElement('tr');
+        // Find matching user for avatar if p.avatar is missing
+        const matchedUser = (window.allUsers || []).find(u => u.phone === p.phone || u.email === p.email);
+        const avatarUrl = p.avatar || (matchedUser ? matchedUser.avatar : '');
+        
+        const photoHtml = avatarUrl ? 
+            `<img src="${avatarUrl}" alt="${p.name}" style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover; margin-right: 0.5rem; vertical-align: middle; border: 1px solid #cbd5e1;">` : 
+            `<div style="width: 34px; height: 34px; border-radius: 50%; background: #e2e8f0; color: #475569; display: inline-flex; align-items: center; justify-content: center; font-size: 0.85rem; margin-right: 0.5rem; vertical-align: middle;"><i class="fa-solid fa-user"></i></div>`;
+
         tr.innerHTML = `
             <td><strong>${p.id}</strong></td>
-            <td><strong>${p.name}</strong></td>
+            <td>${photoHtml}<strong>${p.name}</strong></td>
             <td>${p.age} Yrs / ${p.gender}</td>
             <td>${p.phone}</td>
             <td>${p.email}</td>
@@ -267,6 +422,7 @@ function openPatientModal(patId = null) {
         document.getElementById('patInputAge').value = p.age;
         document.getElementById('patInputGender').value = p.gender;
         document.getElementById('patInputBlood').value = p.bloodGroup;
+        if (document.getElementById('patInputAvatar')) document.getElementById('patInputAvatar').value = p.avatar || '';
     } else {
         heading.innerHTML = `<i class="fa-solid fa-hospital-user"></i> Register Patient`;
         idInput.value = '';
@@ -469,18 +625,57 @@ function renderReports() {
     document.getElementById('repPatientFiles').textContent = allPatients.length;
 }
 
-function exportAppointmentsCSV() {
-    let csv = "AppointmentID,PatientName,DoctorName,Department,Date,TimeSlot,Fee,Status\n";
-    allAppointments.forEach(a => {
-        csv += `"${a.id}","${a.patientName}","${a.doctorName}","${a.department}","${a.date}","${a.timeSlot}","${a.fee}","${a.status}"\n`;
-    });
+function exportReportsCSV() {
+    let csv = "Metric,Value\n";
+    csv += `"Total Appointments","${allAppointments.length}"\n`;
+    csv += `"Free General OPD","${allAppointments.filter(a => a.fee === 0).length}"\n`;
+    csv += `"Specialist Paid OPD","${allAppointments.filter(a => a.fee > 0).length}"\n`;
+    csv += `"Completed Consultations","${allAppointments.filter(a => a.status === 'Completed').length}"\n`;
+    csv += `"Active Departments","${allDepartments.length}"\n`;
+    csv += `"Doctors On Roster","${allDoctors.length}"\n`;
+    csv += `"Registered Patients","${allPatients.length}"\n`;
+
     const blob = new Blob([csv], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `YourCare_hospital_appointments_${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `YourCare_Hospital_Executive_Analytics_${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
-    showToast('Exported appointments to CSV successfully!');
+    showToast('Exported executive analytics to CSV!');
+}
+
+function exportReportsPDF() {
+    const printArea = document.getElementById('reportPrintArea');
+    if (!printArea) return;
+    
+    showToast('Generating PDF Report...');
+
+    const opt = {
+        margin:       0.5,
+        filename:     `YourCare_Hospital_Analytics_Report_${new Date().toISOString().split('T')[0]}.pdf`,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    if (typeof html2pdf !== 'undefined') {
+        html2pdf().set(opt).from(printArea).save().then(() => {
+            showToast('PDF Report downloaded successfully!');
+        });
+    } else {
+        window.print();
+    }
+}
+
+// File Reader Helper
+function readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+        if (!file) return resolve('');
+        const reader = new FileReader();
+        reader.onload = (e) => resolve(e.target.result);
+        reader.onerror = (e) => reject(e);
+        reader.readAsDataURL(file);
+    });
 }
 
 // ==========================================
@@ -491,13 +686,29 @@ function setupEventListeners() {
     document.getElementById('docForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = document.getElementById('docFormId').value;
+
+        let avatar = document.getElementById('docInputAvatar') ? document.getElementById('docInputAvatar').value.trim() : '';
+        let resume = document.getElementById('docInputResume') ? document.getElementById('docInputResume').value.trim() : '';
+
+        const photoFile = document.getElementById('docInputPhotoFile')?.files[0];
+        const resumeFile = document.getElementById('docInputResumeFile')?.files[0];
+
+        if (photoFile) {
+            try { avatar = await readFileAsDataURL(photoFile); } catch(err) { console.error(err); }
+        }
+        if (resumeFile) {
+            try { resume = await readFileAsDataURL(resumeFile); } catch(err) { console.error(err); }
+        }
+
         const data = {
             name: document.getElementById('docInputName').value.trim(),
             department: document.getElementById('docInputDept').value,
             qualification: document.getElementById('docInputQual').value.trim(),
             experience: document.getElementById('docInputExp').value,
             fee: document.getElementById('docInputFee').value,
-            room: document.getElementById('docInputRoom').value.trim()
+            room: document.getElementById('docInputRoom').value.trim(),
+            avatar,
+            resume
         };
 
         if (id) {
@@ -516,13 +727,22 @@ function setupEventListeners() {
     document.getElementById('patForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = document.getElementById('patFormId').value;
+
+        let avatar = document.getElementById('patInputAvatar') ? document.getElementById('patInputAvatar').value.trim() : '';
+        const photoFile = document.getElementById('patInputPhotoFile')?.files[0];
+
+        if (photoFile) {
+            try { avatar = await readFileAsDataURL(photoFile); } catch(err) { console.error(err); }
+        }
+
         const data = {
             name: document.getElementById('patInputName').value.trim(),
             phone: document.getElementById('patInputPhone').value.trim(),
             email: document.getElementById('patInputEmail').value.trim(),
             age: document.getElementById('patInputAge').value,
             gender: document.getElementById('patInputGender').value,
-            bloodGroup: document.getElementById('patInputBlood').value
+            bloodGroup: document.getElementById('patInputBlood').value,
+            avatar
         };
 
         if (id) {

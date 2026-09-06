@@ -978,7 +978,7 @@ button {
 }
 
 /* --- Footer --- */
-.app-footer {
+.footer, .app-footer {
     background-color: var(--primary-darker);
     color: #94a3b8;
     padding: 3rem 0 1.5rem;

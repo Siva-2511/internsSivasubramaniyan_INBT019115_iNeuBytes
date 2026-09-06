@@ -15,6 +15,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     const phone = currentUser.phone || '9876543210';
     document.getElementById('patMetaDisplay').textContent = `Phone: ${phone} &bull; Email: ${currentUser.email}`;
 
+    const avatarContainer = document.getElementById('patAvatarContainer');
+    if (avatarContainer) {
+        if (currentUser.avatar) {
+            avatarContainer.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        } else {
+            avatarContainer.innerHTML = `<i class="fa-solid fa-user"></i>`;
+        }
+    }
+
     // 3. Load Data from Backend API
     await loadPatientAppointments();
     await loadPatientPrescriptions();
@@ -82,14 +91,31 @@ async function loadPatientPrescriptions() {
         }
 
         prescs.forEach(p => {
+            const isArchived = p.status === 'Archived';
             const card = document.createElement('div');
             card.className = 'service-card';
             card.style.padding = '1rem';
+            card.style.opacity = isArchived ? '0.75' : '1';
+            card.style.borderLeft = isArchived ? '4px solid #94a3b8' : '4px solid var(--brand-green)';
+            card.style.marginBottom = '1rem';
+
+            const noteBanner = p.doctorNote ? `
+                <div style="background: #fffbebfb; border: 1px solid #fde68a; color: #92400e; padding: 0.65rem; border-radius: 6px; font-size: 0.8rem; margin: 0.5rem 0; font-weight: 500;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: #d97706;"></i> <strong>Doctor Message:</strong> ${p.doctorNote}
+                </div>
+            ` : '';
+
+            const statusBadge = isArchived ? `<span class="badge" style="background: #f1f5f9; color: #64748b;">Previous / Superseded</span>` : `<span class="badge" style="background: #ecfdf5; color: #059669;">Active Prescription</span>`;
+
             card.innerHTML = `
-                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.4rem; margin-bottom: 0.5rem; font-size: 0.8rem;">
-                    <strong><i class="fa-solid fa-user-doctor"></i> ${p.doctorName} (${p.department || 'Consultant'})</strong>
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.4rem; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                    <div>
+                        <strong><i class="fa-solid fa-user-doctor"></i> ${p.doctorName} (${p.department || 'Consultant'})</strong>
+                        ${statusBadge}
+                    </div>
                     <span>${p.date} &bull; ${p.aptId}</span>
                 </div>
+                ${noteBanner}
                 <div style="font-size: 0.85rem;">
                     <strong style="color: var(--primary-dark); display: block; margin-bottom: 0.25rem;">Diagnosis: ${p.diagnosis}</strong>
                     <div style="white-space: pre-line; background: var(--bg-muted); padding: 0.65rem; border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--text-body);">
@@ -155,6 +181,7 @@ function setupBookingForm() {
         const data = {
             patientName: currentUser.name,
             patientPhone: currentUser.phone || '9876543210',
+            patientAvatar: currentUser.avatar || '',
             doctorName: doc.name,
             department: doc.department,
             date: document.getElementById('bookDateInput').value,
@@ -182,21 +209,70 @@ function setupBookingForm() {
 }
 
 function setupProfileForm() {
-    document.getElementById('profileForm').addEventListener('submit', (e) => {
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const newName = document.getElementById('editPatName').value.trim();
         const newPhone = document.getElementById('editPatPhone').value.trim();
         
+        let avatar = document.getElementById('editPatAvatarUrl') ? document.getElementById('editPatAvatarUrl').value.trim() : (currentUser.avatar || '');
+        const fileInput = document.getElementById('editPatPhotoFile');
+        if (fileInput && fileInput.files[0]) {
+            try {
+                avatar = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => resolve(ev.target.result);
+                    reader.readAsDataURL(fileInput.files[0]);
+                });
+            } catch(err) { console.error(err); }
+        }
+
         currentUser.name = newName;
         currentUser.phone = newPhone;
+        currentUser.avatar = avatar;
         Auth.setSession(currentUser);
+
+        // Update backend patient record
+        if (currentUser.patientId) {
+            try { await API.updatePatient(currentUser.patientId, { name: newName, phone: newPhone, avatar }); } catch(err) { console.error(err); }
+        }
 
         document.getElementById('patNameDisplay').textContent = currentUser.name;
         document.getElementById('patMetaDisplay').textContent = `Phone: ${currentUser.phone} &bull; Email: ${currentUser.email}`;
         
+        const avatarContainer = document.getElementById('patAvatarContainer');
+        if (avatarContainer) {
+            if (currentUser.avatar) {
+                avatarContainer.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            } else {
+                avatarContainer.innerHTML = `<i class="fa-solid fa-user"></i>`;
+            }
+        }
+
         closeModal('profileModal');
         showToast('Profile updated successfully.');
     });
+}
+
+async function deletePatientPhoto() {
+    if (confirm('Are you sure you want to remove your profile picture?')) {
+        currentUser.avatar = '';
+        Auth.setSession(currentUser);
+
+        if (currentUser.patientId) {
+            try { await API.updatePatient(currentUser.patientId, { avatar: '' }); } catch(err) { console.error(err); }
+        }
+
+        document.getElementById('editPatAvatarUrl').value = '';
+        const fileInput = document.getElementById('editPatPhotoFile');
+        if (fileInput) fileInput.value = '';
+
+        const avatarContainer = document.getElementById('patAvatarContainer');
+        if (avatarContainer) {
+            avatarContainer.innerHTML = `<i class="fa-solid fa-user"></i>`;
+        }
+
+        showToast('Profile picture removed.');
+    }
 }
 
 async function cancelAppointment(id) {
@@ -234,6 +310,12 @@ async function showReceiptModal(id) {
         }
 
         document.getElementById('slipModal').classList.add('active');
+
+        // Auto click done / close slip modal after 4 seconds
+        if (window.slipAutoCloseTimer) clearTimeout(window.slipAutoCloseTimer);
+        window.slipAutoCloseTimer = setTimeout(() => {
+            closeModal('slipModal');
+        }, 4000);
     } catch(e) {
         console.error(e);
     }

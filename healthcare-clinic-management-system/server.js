@@ -15,8 +15,8 @@ const DB_FILE = path.join(__dirname, 'data', 'db.json');
 
 // Middleware
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Serve static frontend files from 'public'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -78,6 +78,9 @@ app.post('/api/auth/login', (req, res) => {
         profileData = db.patients.find(p => p.phone === user.phone || p.email.toLowerCase() === user.email.toLowerCase());
     }
 
+    const finalAvatar = (profileData && profileData.avatar) ? profileData.avatar : (user.avatar || '');
+    const finalResume = (profileData && profileData.resume) ? profileData.resume : (user.resume || '');
+
     res.json({
         success: true,
         message: `Welcome back, ${user.name}!`,
@@ -87,9 +90,32 @@ app.post('/api/auth/login', (req, res) => {
             email: user.email,
             role: user.role,
             phone: user.phone,
+            patientId: user.patientId || (profileData ? profileData.id : null),
+            doctorId: user.doctorId || (profileData ? profileData.id : null),
+            avatar: finalAvatar,
+            resume: finalResume,
             profile: profileData
         }
     });
+});
+
+// POST /api/auth/forgot-password
+app.post('/api/auth/forgot-password', (req, res) => {
+    const { email, newPassword, role } = req.body;
+    if (!email || !newPassword) {
+        return res.status(400).json({ success: false, message: 'Email and new password are required.' });
+    }
+
+    const db = readDatabase();
+    const user = db.users.find(u => u.email.toLowerCase() === email.toLowerCase().trim() && (!role || u.role === role));
+    if (!user) {
+        return res.status(404).json({ success: false, message: 'No registered user found with this email address.' });
+    }
+
+    user.password = newPassword;
+    writeDatabase(db);
+
+    res.json({ success: true, message: 'Password reset successfully! Please log in with your new password.' });
 });
 
 // POST /api/auth/register
@@ -226,6 +252,14 @@ app.put('/api/doctors/:id', (req, res) => {
     }
 
     db.doctors[index] = { ...db.doctors[index], ...req.body, id };
+    
+    // Sync to user table if doctor has account
+    const userIndex = db.users.findIndex(u => u.doctorId === id || u.name.toLowerCase() === db.doctors[index].name.toLowerCase());
+    if (userIndex !== -1) {
+        if (req.body.avatar !== undefined) db.users[userIndex].avatar = req.body.avatar;
+        if (req.body.resume !== undefined) db.users[userIndex].resume = req.body.resume;
+    }
+
     writeDatabase(db);
     res.json({ success: true, message: 'Doctor details updated.', data: db.doctors[index] });
 });
@@ -273,7 +307,7 @@ app.get('/api/patients', (req, res) => {
 
 // POST /api/patients
 app.post('/api/patients', (req, res) => {
-    const { name, phone, email, age, gender, bloodGroup, address } = req.body;
+    const { name, phone, email, age, gender, bloodGroup, address, avatar } = req.body;
     if (!name || !phone) {
         return res.status(400).json({ success: false, message: 'Patient name and phone are required.' });
     }
@@ -288,6 +322,7 @@ app.post('/api/patients', (req, res) => {
         email: email || '',
         bloodGroup: bloodGroup || 'O+',
         address: address || 'Chennai, India',
+        avatar: avatar || '',
         regDate: new Date().toISOString().split('T')[0]
     };
 
@@ -300,12 +335,19 @@ app.post('/api/patients', (req, res) => {
 app.put('/api/patients/:id', (req, res) => {
     const { id } = req.params;
     const db = readDatabase();
-    const index = db.patients.findIndex(p => p.id === id);
+    const index = db.patients.findIndex(p => p.id === id || p.phone === id);
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'Patient not found.' });
     }
 
-    db.patients[index] = { ...db.patients[index], ...req.body, id };
+    db.patients[index] = { ...db.patients[index], ...req.body };
+    
+    // Sync to user table if patient has account
+    const userIndex = db.users.findIndex(u => u.patientId === id || u.phone === db.patients[index].phone || u.email.toLowerCase() === db.patients[index].email.toLowerCase());
+    if (userIndex !== -1) {
+        if (req.body.avatar !== undefined) db.users[userIndex].avatar = req.body.avatar;
+    }
+
     writeDatabase(db);
     res.json({ success: true, message: 'Patient record updated.', data: db.patients[index] });
 });
@@ -348,6 +390,18 @@ app.get('/api/appointments', (req, res) => {
         );
     }
 
+    // Attach latest patientAvatar from patients or users if missing
+    result = result.map(apt => {
+        let avatar = apt.patientAvatar || '';
+        if (!avatar) {
+            const pat = db.patients.find(p => p.name.toLowerCase() === apt.patientName.toLowerCase() || p.phone === apt.patientPhone);
+            const usr = db.users.find(u => u.name.toLowerCase() === apt.patientName.toLowerCase() || u.phone === apt.patientPhone);
+            if (pat && pat.avatar) avatar = pat.avatar;
+            else if (usr && usr.avatar) avatar = usr.avatar;
+        }
+        return { ...apt, patientAvatar: avatar };
+    });
+
     res.json({ success: true, count: result.length, data: result });
 });
 
@@ -359,10 +413,21 @@ app.post('/api/appointments', (req, res) => {
     }
 
     const db = readDatabase();
+    
+    // Auto lookup avatar from patient or user record
+    let resolvedAvatar = req.body.patientAvatar || '';
+    if (!resolvedAvatar) {
+        const pat = db.patients.find(p => p.name.toLowerCase() === patientName.toLowerCase().trim() || p.phone === patientPhone.trim());
+        const usr = db.users.find(u => u.name.toLowerCase() === patientName.toLowerCase().trim() || u.phone === patientPhone.trim());
+        if (pat && pat.avatar) resolvedAvatar = pat.avatar;
+        else if (usr && usr.avatar) resolvedAvatar = usr.avatar;
+    }
+
     const newApt = {
         id: `APT-2026-${Math.floor(1000 + Math.random() * 9000)}`,
         patientName: patientName.trim(),
         patientPhone: patientPhone.trim(),
+        patientAvatar: resolvedAvatar,
         doctorName: doctorName.trim(),
         department: department || 'General Medicine',
         date,
@@ -468,14 +533,20 @@ app.get('/api/prescriptions', (req, res) => {
 
 // POST /api/prescriptions
 app.post('/api/prescriptions', (req, res) => {
-    const { aptId, patientName, patientPhone, doctorName, department, diagnosis, medicines, followUp } = req.body;
+    const { aptId, patientName, patientPhone, doctorName, department, diagnosis, medicines, followUp, doctorNote } = req.body;
     if (!aptId || !diagnosis || !medicines) {
         return res.status(400).json({ success: false, message: 'Appointment ID, diagnosis, and medicines are required.' });
     }
 
     const db = readDatabase();
     
-    // Also mark appointment Completed
+    // Archive previous prescriptions for this appointment
+    db.prescriptions.forEach(p => {
+        if (p.aptId === aptId) {
+            p.status = 'Archived';
+        }
+    });
+
     const apt = db.appointments.find(a => a.id === aptId);
     if (apt) {
         apt.status = 'Completed';
@@ -491,12 +562,34 @@ app.post('/api/prescriptions', (req, res) => {
         diagnosis: diagnosis.trim(),
         medicines: medicines.trim(),
         followUp: followUp || 'Review as advised.',
+        doctorNote: doctorNote || '',
+        status: 'Active',
         date: new Date().toISOString().split('T')[0]
     };
 
     db.prescriptions.unshift(newPresc);
     writeDatabase(db);
     res.status(201).json({ success: true, message: 'Prescription recorded and consultation completed.', data: newPresc });
+});
+
+// PUT /api/prescriptions/:id
+app.put('/api/prescriptions/:id', (req, res) => {
+    const { id } = req.params;
+    const { diagnosis, medicines, followUp, doctorNote, status } = req.body;
+    const db = readDatabase();
+    const presc = db.prescriptions.find(p => p.id === id);
+    if (!presc) {
+        return res.status(404).json({ success: false, message: 'Prescription record not found.' });
+    }
+
+    if (diagnosis) presc.diagnosis = diagnosis.trim();
+    if (medicines) presc.medicines = medicines.trim();
+    if (followUp !== undefined) presc.followUp = followUp.trim();
+    if (doctorNote !== undefined) presc.doctorNote = doctorNote.trim();
+    if (status) presc.status = status;
+
+    writeDatabase(db);
+    res.json({ success: true, message: 'Prescription & medical instruction updated successfully.', data: presc });
 });
 
 // ==========================================

@@ -1,171 +1,264 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YourCare Hospital - Secure Portal Login</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <!-- TOP NOTICE BAR -->
-    <div class="top-notice-bar">
-        <div class="container d-flex-between">
-            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Clinic Management System</span></div>
-            <div><span><i class="fa-solid fa-phone"></i> Helpline: 044-24567890</span></div>
-        </div>
-    </div>
-
-    <!-- MAIN NAVBAR -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
-                <div class="logo-text">
-                    <span>Your<strong>Care</strong></span>
-                    <small>Healthcare Portal</small>
-                </div>
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="departments.html">Departments</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="register.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Register</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- AUTH CARD CONTAINER -->
-    <div class="auth-page-wrapper">
-        <div class="auth-card">
-            
-            <div class="auth-header">
-                <h2>Hospital Portal Login</h2>
-                <p>Select your user role and enter credentials to continue</p>
-            </div>
-
-            <!-- Role Selector Tabs -->
-            <div class="role-tabs">
-                <button class="role-tab-btn active" data-role="patient" onclick="setRole('patient')"><i class="fa-solid fa-user"></i> Patient</button>
-                <button class="role-tab-btn" data-role="doctor" onclick="setRole('doctor')"><i class="fa-solid fa-user-doctor"></i> Doctor</button>
-                <button class="role-tab-btn" data-role="admin" onclick="setRole('admin')"><i class="fa-solid fa-shield-halved"></i> Admin</button>
-            </div>
-
-            <!-- 1-Click Fast Evaluation Buttons -->
-            <div class="demo-login-box">
-                <h4><i class="fa-solid fa-bolt"></i> Quick Demo Login for Review:</h4>
-                <div class="demo-chips-grid">
-                    <button type="button" class="demo-chip-btn" onclick="fillDemoCredentials('admin')">Admin (Sivasubramaniyan G)</button>
-                    <button type="button" class="demo-chip-btn" onclick="fillDemoCredentials('doctor')">Doctor (Dr. Rajesh Sharma)</button>
-                    <button type="button" class="demo-chip-btn" onclick="fillDemoCredentials('patient')">Patient (Sivasubramaniyan G)</button>
-                </div>
-            </div>
-
-            <div id="errorAlert" style="display: none; background-color: var(--color-danger-bg); color: var(--color-danger); border: 1px solid #fecaca; padding: 0.65rem 0.85rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1rem;"></div>
-
-            <!-- Login Form -->
-            <form id="loginForm">
-                <input type="hidden" id="loginRole" value="patient">
-                
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="e.g. sivas@example.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="loginSubmitBtn">
-                    <i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal
-                </button>
-            </form>
-
-            <div style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
-                Don't have a patient account? <a href="register.html" style="color: var(--brand-green); font-weight: 600;">Register Here</a>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
-    <script>
-        let selectedRole = 'patient';
-
-        // Check query param for role
-        const urlParams = new URLSearchParams(window.location.search);
-        const queryRole = urlParams.get('role');
-        if (queryRole && ['admin', 'doctor', 'patient'].includes(queryRole)) {
-            setRole(queryRole);
-        }
-
-        function setRole(role) {
-            selectedRole = role;
-            document.getElementById('loginRole').value = role;
-            document.querySelectorAll('.role-tab-btn').forEach(btn => {
-                if (btn.getAttribute('data-role') === role) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-            document.getElementById('errorAlert').style.display = 'none';
-        }
-
-        function fillDemoCredentials(role) {
-            setRole(role);
-            if (role === 'admin') {
-                document.getElementById('loginEmail').value = 'admin@YourCare.org';
-                document.getElementById('loginPassword').value = 'admin123';
-            } else if (role === 'doctor') {
-                document.getElementById('loginEmail').value = 'rajesh@YourCare.org';
-                document.getElementById('loginPassword').value = 'doc123';
-            } else if (role === 'patient') {
-                document.getElementById('loginEmail').value = 'sivas@example.com';
-                document.getElementById('loginPassword').value = 'pat123';
-            }
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            const errorAlert = document.getElementById('errorAlert');
-            const submitBtn = document.getElementById('loginSubmitBtn');
-
-            errorAlert.style.display = 'none';
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...`;
-
-            try {
-                const res = await API.login(email, password, selectedRole);
-                if (res.success) {
-                    Auth.setSession(res.user);
-                    showToast(res.message);
-                    setTimeout(() => {
-                        if (res.user.role === 'admin') window.location.href = 'admin-dashboard.html';
-                        else if (res.user.role === 'doctor') window.location.href = 'doctor-dashboard.html';
-                        else window.location.href = 'patient-dashboard.html';
-                    }, 600);
-                } else {
-                    errorAlert.textContent = res.message || 'Invalid email or password.';
-                    errorAlert.style.display = 'block';
-                }
-            } catch(err) {
-                console.error(err);
-                errorAlert.textContent = 'Server connection error. Please make sure the backend is running.';
-                errorAlert.style.display = 'block';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal`;
-            }
-        });
-    </script>
-</body>
-</html>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourCare Hospital - Secure Portal Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP NOTICE BAR -->
+    <div class="top-notice-bar">
+        <div class="container d-flex-between">
+            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Clinic Management System</span></div>
+            <div><span><i class="fa-solid fa-phone"></i> Helpline: 044-24567890</span></div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="YourCare Hospital Logo" style="height: 42px; width: auto; object-fit: contain;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="register.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- AUTH CARD CONTAINER -->
+    <div class="auth-page-wrapper">
+        <div class="auth-card">
+            
+            <div class="auth-header">
+                <h2>Hospital Portal Login</h2>
+                <p>Select your user role and enter credentials to continue</p>
+            </div>
+
+            <!-- Role Selector Tabs -->
+            <div class="role-tabs">
+                <button class="role-tab-btn active" data-role="patient" onclick="setRole('patient')"><i class="fa-solid fa-user"></i> Patient</button>
+                <button class="role-tab-btn" data-role="doctor" onclick="setRole('doctor')"><i class="fa-solid fa-user-doctor"></i> Doctor</button>
+                <button class="role-tab-btn" data-role="admin" onclick="setRole('admin')"><i class="fa-solid fa-shield-halved"></i> Admin</button>
+            </div>
+
+            <!-- 1-Click Fast Evaluation Buttons -->
+            <div class="demo-login-box">
+                <h4><i class="fa-solid fa-bolt"></i> Quick Demo Login for Review:</h4>
+                <div class="demo-chips-grid">
+                    <button type="button" class="demo-chip-btn" onclick="fillDemoCredentials('admin')">Admin (Sivasubramaniyan G)</button>
+                    <button type="button" class="demo-chip-btn" onclick="fillDemoCredentials('doctor')">Doctor (Dr. Rajesh Sharma)</button>
+                    <button type="button" class="demo-chip-btn" onclick="fillDemoCredentials('patient')">Patient (Sivasubramaniyan G)</button>
+                </div>
+            </div>
+
+            <div id="errorAlert" style="display: none; background-color: var(--color-danger-bg); color: var(--color-danger); border: 1px solid #fecaca; padding: 0.65rem 0.85rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1rem;"></div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <input type="hidden" id="loginRole" value="patient">
+                
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="e.g. sivas@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Security Captcha Verification</label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.25rem;">
+                        <span id="captchaCode" style="font-family: monospace; font-size: 1.1rem; font-weight: bold; background: #e2e8f0; color: #0f172a; padding: 0.4rem 0.8rem; border-radius: 6px; letter-spacing: 3px; user-select: none;">8K2P</span>
+                        <button type="button" class="btn btn-outline btn-sm" onclick="generateCaptcha()" title="Refresh Captcha"><i class="fa-solid fa-rotate-right"></i></button>
+                        <input type="text" id="captchaInput" placeholder="Enter code" style="flex: 1;" required>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; margin: 0.5rem 0 1rem 0;">
+                    <label style="display: flex; align-items: center; gap: 0.35rem; cursor: pointer; color: var(--text-muted);">
+                        <input type="checkbox" id="rememberMe"> Remember me
+                    </label>
+                    <a href="javascript:void(0)" onclick="openForgotModal()" style="color: var(--brand-green); font-weight: 600;">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="loginSubmitBtn">
+                    <i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-muted);">
+                Don't have a patient account? <a href="register.html" style="color: var(--brand-green); font-weight: 600;">Register Here</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL -->
+    <div class="modal-overlay" id="forgotModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('forgotModal')">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-key"></i> Account Password Recovery</h3>
+                <p>Reset your portal password securely</p>
+            </div>
+            <form id="forgotForm">
+                <div class="form-group">
+                    <label>Registered Email Address *</label>
+                    <input type="email" id="forgotEmail" placeholder="e.g. sivas@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>New Password *</label>
+                    <input type="password" id="forgotNewPass" placeholder="Enter new password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('forgotModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-key"></i> Reset Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        let selectedRole = 'patient';
+        let currentCaptcha = '';
+
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 4; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            currentCaptcha = code;
+            document.getElementById('captchaCode').textContent = code;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            Auth.redirectIfLoggedIn();
+            generateCaptcha();
+        });
+
+        function openForgotModal() {
+            document.getElementById('forgotForm').reset();
+            document.getElementById('forgotEmail').value = document.getElementById('loginEmail').value;
+            document.getElementById('forgotModal').classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Check query param for role
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryRole = urlParams.get('role');
+        if (queryRole && ['admin', 'doctor', 'patient'].includes(queryRole)) {
+            setRole(queryRole);
+        }
+
+        function setRole(role) {
+            selectedRole = role;
+            document.getElementById('loginRole').value = role;
+            document.querySelectorAll('.role-tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-role') === role) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            document.getElementById('errorAlert').style.display = 'none';
+        }
+
+        function fillDemoCredentials(role) {
+            setRole(role);
+            if (role === 'admin') {
+                document.getElementById('loginEmail').value = 'admin@YourCare.org';
+                document.getElementById('loginPassword').value = 'admin123';
+            } else if (role === 'doctor') {
+                document.getElementById('loginEmail').value = 'rajesh@YourCare.org';
+                document.getElementById('loginPassword').value = 'doc123';
+            } else if (role === 'patient') {
+                document.getElementById('loginEmail').value = 'sivas@example.com';
+                document.getElementById('loginPassword').value = 'pat123';
+            }
+            document.getElementById('captchaInput').value = currentCaptcha;
+        }
+
+        document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('forgotEmail').value.trim();
+            const newPassword = document.getElementById('forgotNewPass').value;
+            
+            try {
+                const res = await API.forgotPassword(email, newPassword, selectedRole);
+                if (res.success) {
+                    showToast(res.message);
+                    closeModal('forgotModal');
+                    document.getElementById('loginPassword').value = newPassword;
+                } else {
+                    alert(res.message || 'Password reset failed.');
+                }
+            } catch(e) {
+                console.error(e);
+                alert('Connection error while resetting password.');
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const userCaptcha = document.getElementById('captchaInput').value.trim().toUpperCase();
+            const errorAlert = document.getElementById('errorAlert');
+            const submitBtn = document.getElementById('loginSubmitBtn');
+
+            if (userCaptcha !== currentCaptcha) {
+                errorAlert.textContent = 'Security Captcha incorrect! Please enter the 4-character code shown.';
+                errorAlert.style.display = 'block';
+                generateCaptcha();
+                document.getElementById('captchaInput').value = '';
+                return;
+            }
+
+            errorAlert.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...`;
+
+            try {
+                const res = await API.login(email, password, selectedRole);
+                if (res.success) {
+                    Auth.setSession(res.user);
+                    showToast(res.message);
+                    setTimeout(() => {
+                        if (res.user.role === 'admin') window.location.href = 'admin-dashboard.html';
+                        else if (res.user.role === 'doctor') window.location.href = 'doctor-dashboard.html';
+                        else window.location.href = 'patient-dashboard.html';
+                    }, 600);
+                } else {
+                    errorAlert.textContent = res.message || 'Invalid email or password.';
+                    errorAlert.style.display = 'block';
+                    generateCaptcha();
+                }
+            } catch(err) {
+                console.error(err);
+                errorAlert.textContent = 'Server connection error. Please make sure the backend is running.';
+                errorAlert.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Sign In to Portal`;
+            }
+        });
+    </script>
+</body>
+</html>

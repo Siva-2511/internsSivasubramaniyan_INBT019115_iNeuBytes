@@ -1,227 +1,296 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YourCare Hospital & Medical Center - Major Project Portal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <!-- TOP NOTICE BAR -->
-    <div class="top-notice-bar">
-        <div class="container d-flex-between">
-            <div class="top-contact">
-                <span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Medical Center</span>
-                <span class="top-divider">|</span>
-                <span><i class="fa-solid fa-phone"></i> Emergency Desk: 044-24567890</span>
-                <span class="top-divider">|</span>
-                <span><i class="fa-solid fa-envelope"></i> reception@YourCare-hospital.org</span>
-            </div>
-            <div>
-                <span><i class="fa-solid fa-clock"></i> OPD Hours: Mon - Sat: 8:00 AM - 8:00 PM</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN NAVBAR -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
-                <div class="logo-text">
-                    <span>Your<strong>Care</strong></span>
-                    <small>Hospital & Medical Center</small>
-                </div>
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="departments.html">Departments</a></li>
-                <li><a href="contact.html">Contact & Emergency</a></li>
-            </ul>
-            <div class="nav-actions" id="authNavContainer">
-                <a href="login.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-                <a href="register.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Register</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <header class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <span class="section-badge" style="background: rgba(16, 185, 129, 0.2); color: #a7f3d0; border-color: rgba(16, 185, 129, 0.4);"><i class="fa-solid fa-shield-halved"></i> NABH Accredited Healthcare Facility</span>
-                <h1>Comprehensive Clinical Excellence & <span>Free General OPD</span></h1>
-                <p>Delivering trusted multispecialty healthcare, 24x7 emergency response, modern diagnostics, and compassionate doctor consultations for all patients.</p>
-                <div class="hero-btns">
-                    <a href="login.html?role=patient" class="btn btn-primary"><i class="fa-regular fa-calendar-check"></i> Book OPD Consultation</a>
-                    <a href="departments.html" class="btn btn-outline" style="color: #ffffff; border-color: rgba(255,255,255,0.3);"><i class="fa-solid fa-stethoscope"></i> View Medical Departments</a>
-                </div>
-                <div class="hero-badges">
-                    <div class="hero-badge-item">
-                        <strong>50,000+</strong>
-                        <span>Treated Patients</span>
-                    </div>
-                    <div class="hero-badge-item">
-                        <strong>35+</strong>
-                        <span>Specialist Physicians</span>
-                    </div>
-                    <div class="hero-badge-item">
-                        <strong>24x7</strong>
-                        <span>Trauma & ICU Care</span>
-                    </div>
-                    <div class="hero-badge-item">
-                        <strong>₹0 Free OPD</strong>
-                        <span>General Consultations</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- CLINICAL SERVICES SECTION -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Medical Specialties</span>
-                <h2>Hospital Departments & Clinical Care</h2>
-                <p>Our dedicated medical departments combine modern diagnostic infrastructure with experienced specialist doctors.</p>
-            </div>
-            <div class="grid-4-cols" id="homeDeptsGrid">
-                <!-- Populated by JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURED DOCTORS SECTION -->
-    <section class="section" style="background-color: var(--bg-muted);">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-badge">Consultant Doctors</span>
-                <h2>Our Specialist Physicians On Duty</h2>
-                <p>Dedicated medical professionals providing daily outpatient consultations and compassionate inpatient care.</p>
-            </div>
-            <div class="grid-3-cols" id="homeDoctorsGrid">
-                <!-- Populated by JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="app-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <div class="logo" style="margin-bottom: 1rem; color: #ffffff;">
-                        <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
-                        <div class="logo-text">
-                            <span>Your<strong>Care</strong></span>
-                            <small style="color: #94a3b8;">Hospital & Clinic</small>
-                        </div>
-                    </div>
-                    <p style="font-size: 0.85rem; line-height: 1.6;">Dedicated to providing comprehensive medical services, charitable free OPD consultations, and 24x7 emergency medical support.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="departments.html">Departments Directory</a></li>
-                        <li><a href="login.html?role=patient">Book OPD Appointment</a></li>
-                        <li><a href="contact.html">Emergency & Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Hospital Portals</h4>
-                    <ul>
-                        <li><a href="login.html?role=patient"><i class="fa-solid fa-user"></i> Patient Medical Portal</a></li>
-                        <li><a href="login.html?role=doctor"><i class="fa-solid fa-user-doctor"></i> Doctor Consultation Portal</a></li>
-                        <li><a href="login.html?role=admin"><i class="fa-solid fa-shield-halved"></i> Hospital Administrator Portal</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Emergency & Helplines</h4>
-                    <p><strong><i class="fa-solid fa-phone"></i> 044-24567890</strong></p>
-                    <p><strong><i class="fa-solid fa-phone-volume"></i> 1800-200-4567 (Toll-Free)</strong></p>
-                    <p style="margin-top: 0.5rem; font-size: 0.8rem;"><i class="fa-solid fa-location-dot"></i> 45 Health Avenue, Medical Enclave, Chennai, Tamil Nadu, India</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 YourCare Hospital & Medical Center. Major Project - Course ID: WBINB20726.</p>
-                <p>Designed for Healthcare Management & Internship Submission</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Load Departments
-            try {
-                const depRes = await API.getDepartments();
-                const depts = depRes.data || [];
-                const deptsGrid = document.getElementById('homeDeptsGrid');
-                deptsGrid.innerHTML = '';
-                depts.forEach(d => {
-                    const card = document.createElement('div');
-                    card.className = 'service-card';
-                    const iconMap = {
-                        'General Medicine': 'fa-stethoscope',
-                        'Pediatrics': 'fa-baby',
-                        'Cardiology': 'fa-heart-pulse',
-                        'Dermatology': 'fa-hand-dots',
-                        'Orthopedics': 'fa-bone',
-                        'Neurology': 'fa-brain',
-                        'Ophthalmology': 'fa-eye',
-                        'ENT': 'fa-head-side-cough'
-                    };
-                    const icon = iconMap[d.name] || 'fa-hospital';
-                    card.innerHTML = `
-                        <div class="service-icon"><i class="fa-solid ${icon}"></i></div>
-                        <h3>${d.name}</h3>
-                        <p>${d.description}</p>
-                        <div style="margin-top: 0.85rem;">
-                            <span class="status-pill ${d.feeType.includes('Free') ? 'status-confirmed' : 'status-completed'}">${d.feeType}</span>
-                        </div>
-                    `;
-                    deptsGrid.appendChild(card);
-                });
-            } catch(e) { console.error(e); }
-
-            // Load Doctors
-            try {
-                const docRes = await API.getDoctors();
-                const docs = (docRes.data || []).slice(0, 6);
-                const docGrid = document.getElementById('homeDoctorsGrid');
-                docGrid.innerHTML = '';
-                docs.forEach(doc => {
-                    const card = document.createElement('div');
-                    card.className = 'doctor-card';
-                    const feeDisplay = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD (₹0)</strong>` : `<strong>₹${doc.fee}</strong>`;
-                    card.innerHTML = `
-                        <div class="doc-avatar"><i class="fa-solid ${doc.gender === 'female' ? 'fa-user-nurse' : 'fa-user-doctor'}"></i></div>
-                        <div class="doc-info">
-                            <h3>${doc.name}</h3>
-                            <span class="doc-dept">${doc.department}</span>
-                            <div class="doc-meta">
-                                <div><i class="fa-solid fa-graduation-cap"></i> ${doc.qualification}</div>
-                                <div><i class="fa-solid fa-door-open"></i> ${doc.room}</div>
-                            </div>
-                        </div>
-                        <div class="doc-fee-badge">
-                            <span>Consultation Fee:</span>
-                            ${feeDisplay}
-                        </div>
-                    `;
-                    docGrid.appendChild(card);
-                });
-            } catch(e) { console.error(e); }
-        });
-    </script>
-</body>
-</html>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourCare Hospital & Medical Center - Major Project Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP NOTICE BAR -->
+    <div class="top-notice-bar">
+        <div class="container d-flex-between">
+            <div class="top-contact">
+                <span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Medical Center</span>
+                <span class="top-divider">|</span>
+                <span><i class="fa-solid fa-phone"></i> Emergency Desk: 044-24567890</span>
+                <span class="top-divider">|</span>
+                <span><i class="fa-solid fa-envelope"></i> reception@YourCare-hospital.org</span>
+            </div>
+            <div>
+                <span><i class="fa-solid fa-clock"></i> OPD Hours: Mon - Sat: 8:00 AM - 8:00 PM</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="YourCare Hospital Logo" style="height: 42px; width: auto; object-fit: contain;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="contact.html">Contact & Emergency</a></li>
+            </ul>
+            <div class="nav-actions" id="authNavContainer">
+                <button class="btn btn-outline btn-sm" onclick="window.voiceAssistant && window.voiceAssistant.toggleVoice()" title="Toggle Voice Assistant" style="color: var(--brand-green); border-color: var(--brand-green-border);">
+                    <i class="fa-solid fa-microphone"></i> Voice Assistant
+                </button>
+                <a href="login.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+                <a href="register.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home" style="background: linear-gradient(135deg, #064e3b 0%, #022c22 100%); color: white; padding: 4rem 0 3rem 0; position: relative;">
+        <div class="container hero-content" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2.5rem; align-items: center;">
+            <div class="hero-text">
+                <span class="hero-tag" style="background: rgba(16, 185, 129, 0.2); color: #a7f3d0; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid rgba(16, 185, 129, 0.4); display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i class="fa-solid fa-heart-pulse"></i> Comprehensive Healthcare & Clinical Excellence</span>
+                <h1 style="font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 1rem;">Compassionate Healthcare & Medical Care for Your Family</h1>
+                <p style="font-size: 1.05rem; color: #cbd5e1; margin-bottom: 1.5rem; line-height: 1.6;">YourCare Clinic delivers trusted clinical diagnosis, expert OPD consultations across 8 medical departments, modern laboratory testing, and 24x7 emergency medical support.</p>
+
+                <div class="hero-features-list" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; font-size: 0.9rem; color: #a7f3d0;">
+                    <span><i class="fa-solid fa-circle-check"></i> Free General OPD Consultations</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Experienced Duty Specialists</span>
+                    <span><i class="fa-solid fa-circle-check"></i> Modern Diagnostic Facilities</span>
+                </div>
+
+                <div class="hero-buttons" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <a href="login.html?role=patient" class="btn btn-primary btn-lg"><i class="fa-regular fa-calendar-plus"></i> Make an Appointment Enquiry</a>
+                    <a href="departments.html" class="btn btn-outline btn-lg" style="color: #ffffff; border-color: rgba(255,255,255,0.4);"><i class="fa-solid fa-stethoscope"></i> Our Medical Services</a>
+                </div>
+
+                <!-- Hospital Stats Bar -->
+                <div class="hero-stats" style="display: flex; align-items: center; gap: 1.5rem; background: rgba(255,255,255,0.08); padding: 1rem 1.25rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15);">
+                    <div class="stat-item">
+                        <strong style="display: block; font-size: 1.4rem; color: #10b981;">15+</strong>
+                        <span style="font-size: 0.75rem; color: #cbd5e1;">Years Serving</span>
+                    </div>
+                    <div style="width: 1px; height: 30px; background: rgba(255,255,255,0.2);"></div>
+                    <div class="stat-item">
+                        <strong style="display: block; font-size: 1.4rem; color: #10b981;">50+</strong>
+                        <span style="font-size: 0.75rem; color: #cbd5e1;">Doctors on Duty</span>
+                    </div>
+                    <div style="width: 1px; height: 30px; background: rgba(255,255,255,0.2);"></div>
+                    <div class="stat-item">
+                        <strong style="display: block; font-size: 1.4rem; color: #10b981;">100k+</strong>
+                        <span style="font-size: 0.75rem; color: #cbd5e1;">Treated Patients</span>
+                    </div>
+                    <div style="width: 1px; height: 30px; background: rgba(255,255,255,0.2);"></div>
+                    <div class="stat-item">
+                        <strong style="display: block; font-size: 1.4rem; color: #10b981;">24/7</strong>
+                        <span style="font-size: 0.75rem; color: #cbd5e1;">Emergency Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Quick Information Banner Card -->
+            <div class="hero-card" style="background: white; color: #0f172a; border-radius: 16px; padding: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+                <div class="quick-info-box">
+                    <div class="quick-info-header" style="display: flex; gap: 0.85rem; align-items: center; margin-bottom: 1.25rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.85rem;">
+                        <i class="fa-solid fa-truck-medical" style="font-size: 2rem; color: var(--brand-green);"></i>
+                        <div>
+                            <h3 style="margin: 0; font-size: 1.1rem;">Emergency & OPD Desk</h3>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Immediate medical attention & consultation</p>
+                        </div>
+                    </div>
+
+                    <div class="info-badge-list" style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.25rem;">
+                        <div class="info-badge-item" style="display: flex; align-items: center; gap: 0.75rem; background: #f8fafc; padding: 0.65rem; border-radius: 8px;">
+                            <i class="fa-solid fa-phone-volume" style="color: var(--brand-green);"></i>
+                            <div>
+                                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">24x7 Emergency Line</span>
+                                <strong style="font-size: 0.85rem; color: #0f172a;">044-24567890 / 1800-200-4567</strong>
+                            </div>
+                        </div>
+
+                        <div class="info-badge-item" style="display: flex; align-items: center; gap: 0.75rem; background: #f8fafc; padding: 0.65rem; border-radius: 8px;">
+                            <i class="fa-solid fa-calendar-days" style="color: #2563eb;"></i>
+                            <div>
+                                <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">General OPD Schedule</span>
+                                <strong style="font-size: 0.85rem; color: #0f172a;">Monday – Saturday: 8:00 AM – 8:00 PM</strong>
+                            </div>
+                        </div>
+
+                        <div class="info-badge-item" style="display: flex; align-items: center; gap: 0.75rem; background: #ecfdf5; padding: 0.65rem; border-radius: 8px;">
+                            <i class="fa-solid fa-hand-holding-medical" style="color: #059669;"></i>
+                            <div>
+                                <span style="display: block; font-size: 0.75rem; color: #047857;">Charitable Primary Care</span>
+                                <strong style="font-size: 0.85rem; color: #065f46;">Free General OPD Available Daily</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="contact.html" class="btn btn-primary" style="width: 100%; text-align: center; justify-content: center;">
+                        <i class="fa-solid fa-location-dot"></i> Get Hospital Location & Directions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fa-solid fa-stethoscope"></i> Medical Specialties</span>
+                <h2>Hospital Departments & Clinical Care</h2>
+                <p>Our dedicated medical departments combine modern diagnostic infrastructure with experienced specialist doctors.</p>
+            </div>
+            <div class="grid-4-cols" id="homeDeptsGrid"></div>
+        </div>
+    </section>
+
+    <!-- DOCTORS SECTION -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fa-solid fa-user-doctor"></i> Consultant Doctors</span>
+                <h2>Our Specialist Physicians On Duty</h2>
+                <p>Dedicated medical professionals providing daily outpatient consultations and compassionate inpatient care.</p>
+            </div>
+            <div class="grid-3-cols" id="homeDoctorsGrid"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <img src="images/logo.png" alt="YourCare Hospital Logo" style="height: 36px; width: auto; object-fit: contain;">
+                        <div class="logo-text">
+                            <span>Your<strong>Care</strong></span>
+                            <small>Hospital & Clinic</small>
+                        </div>
+                    </div>
+                    <p>Dedicated to providing comprehensive medical services, charitable free OPD consultations, and 24x7 emergency medical support.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="departments.html">Departments Directory</a></li>
+                        <li><a href="login.html?role=patient">Book OPD Appointment</a></li>
+                        <li><a href="contact.html">Emergency & Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hospital Portals</h4>
+                    <ul>
+                        <li><a href="login.html?role=patient"><i class="fa-solid fa-angle-right"></i> Patient Medical Portal</a></li>
+                        <li><a href="login.html?role=doctor"><i class="fa-solid fa-angle-right"></i> Doctor Consultation Portal</a></li>
+                        <li><a href="login.html?role=admin"><i class="fa-solid fa-angle-right"></i> Hospital Administrator Portal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Emergency & Helplines</h4>
+                    <p><i class="fa-solid fa-phone" style="color: var(--brand-green);"></i> 044-24567890</p>
+                    <p><i class="fa-solid fa-headset" style="color: var(--brand-green);"></i> 1800-200-4567 (Toll-Free)</p>
+                    <p><i class="fa-solid fa-location-dot" style="color: var(--brand-green);"></i> 45 Health Avenue, Medical Enclave, Chennai, Tamil Nadu, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 YourCare Hospital & Medical Center. Major Project - Course ID: WBINB20726.</p>
+                <p>Designed for Healthcare Management & Internship Submission</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/voice-assistant.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check session
+            const user = Auth.getUser();
+            if (user) {
+                const nav = document.getElementById('authNavContainer');
+                if (nav) {
+                    let dashUrl = 'patient-dashboard.html';
+                    if (user.role === 'admin') dashUrl = 'admin-dashboard.html';
+                    else if (user.role === 'doctor') dashUrl = 'doctor-dashboard.html';
+                    nav.innerHTML = `<a href="${dashUrl}" class="btn btn-primary btn-sm"><i class="fa-solid fa-gauge"></i> My Dashboard</a> <button onclick="Auth.logout()" class="btn btn-outline btn-sm">Logout</button>`;
+                }
+            }
+
+            // Load Departments
+            try {
+                const depRes = await API.getDepartments();
+                const depts = depRes.data || [];
+                const deptsGrid = document.getElementById('homeDeptsGrid');
+                if (deptsGrid) {
+                    deptsGrid.innerHTML = '';
+                    depts.forEach(d => {
+                        const card = document.createElement('div');
+                        card.className = 'service-card';
+                        const iconMap = {
+                            'General Medicine': 'fa-stethoscope',
+                            'Pediatrics': 'fa-baby',
+                            'Cardiology': 'fa-heart-pulse',
+                            'Dermatology': 'fa-hand-dots',
+                            'Orthopedics': 'fa-bone',
+                            'Neurology': 'fa-brain',
+                            'Ophthalmology': 'fa-eye',
+                            'ENT': 'fa-head-side-cough'
+                        };
+                        const icon = iconMap[d.name] || 'fa-hospital';
+                        card.innerHTML = `
+                            <div class="service-icon"><i class="fa-solid ${icon}"></i></div>
+                            <h3>${d.name}</h3>
+                            <p>${d.description}</p>
+                            <div style="margin-top: 0.85rem;">
+                                <span class="status-pill ${d.feeType.includes('Free') ? 'status-confirmed' : 'status-completed'}">${d.feeType}</span>
+                            </div>
+                        `;
+                        deptsGrid.appendChild(card);
+                    });
+                }
+            } catch(e) { console.error(e); }
+
+            // Load Doctors
+            try {
+                const docRes = await API.getDoctors();
+                const docs = (docRes.data || []).slice(0, 6);
+                const docGrid = document.getElementById('homeDoctorsGrid');
+                if (docGrid) {
+                    docGrid.innerHTML = '';
+                    docs.forEach(doc => {
+                        const card = document.createElement('div');
+                        card.className = 'doctor-card';
+                        const feeDisplay = doc.fee === 0 ? 
+                            `<span style="background-color: #059669; color: #ffffff; padding: 0.25rem 0.65rem; border-radius: 6px; font-weight: 700; font-size: 0.85rem;"><i class="fa-solid fa-gift"></i> FREE OPD (₹0)</span>` : 
+                            `<strong style="color: #0f172a; font-size: 1.05rem;">₹${doc.fee}</strong>`;
+                        const avatarHtml = doc.avatar ? `<img src="${doc.avatar}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">` : `<i class="fa-solid ${doc.gender === 'female' ? 'fa-user-nurse' : 'fa-user-doctor'}"></i>`;
+                        card.innerHTML = `
+                            <div class="doc-avatar">${avatarHtml}</div>
+                            <div class="doc-info">
+                                <h3>${doc.name}</h3>
+                                <span class="doc-dept">${doc.department}</span>
+                                <div class="doc-meta">
+                                    <div><i class="fa-solid fa-graduation-cap"></i> ${doc.qualification}</div>
+                                    <div><i class="fa-solid fa-door-open"></i> ${doc.room}</div>
+                                </div>
+                            </div>
+                            <div class="doc-fee-badge">
+                                <span>Consultation Fee:</span>
+                                ${feeDisplay}
+                            </div>
+                        `;
+                        docGrid.appendChild(card);
+                    });
+                }
+            } catch(e) { console.error(e); }
+        });
+    </script>
+</body>
+</html>

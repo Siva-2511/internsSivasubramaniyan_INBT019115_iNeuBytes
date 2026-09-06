@@ -24,11 +24,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
-                <div class="logo-text">
-                    <span>Your<strong>Care</strong></span>
-                    <small>Doctor Portal</small>
-                </div>
+                <img src="images/logo.png" alt="YourCare Hospital Logo" style="height: 42px; width: auto; object-fit: contain;">
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -53,6 +49,10 @@
                 <div>
                     <h2 id="docNameDisplay">Dr. Rajesh Sharma</h2>
                     <p id="docMetaDisplay">Cardiology &bull; MBBS, MD, DM (Cardiology) &bull; Room 201, 2nd Floor</p>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 0.4rem; flex-wrap: wrap;">
+                        <button class="btn btn-outline btn-sm" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" onclick="openDoctorProfileModal()"><i class="fa-solid fa-user-pen"></i> Edit Profile & Avatar</button>
+                        <button class="btn btn-outline btn-sm" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" onclick="openDocResumeModal()"><i class="fa-solid fa-file-pdf"></i> Upload Resume / Certificate</button>
+                    </div>
                 </div>
             </div>
             <div style="display: flex; gap: 1.5rem; text-align: center;">
@@ -137,9 +137,88 @@
                     <label>Follow-Up Instructions</label>
                     <input type="text" id="modalFollowUp" placeholder="e.g. Review after 5 days if fever persists.">
                 </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-triangle-exclamation" style="color: #d97706;"></i> Important Instruction / Message to Patient (Overriding Note)</label>
+                    <textarea id="modalDoctorNote" rows="2" placeholder="e.g. NOTICE: Do not use previous prescription. Follow this updated medication schedule strictly."></textarea>
+                </div>
                 <div class="modal-actions">
                     <button type="button" class="btn btn-outline" onclick="closeModal('prescribeModal')">Cancel</button>
                     <button type="submit" class="btn btn-primary" id="prescribeSubmitBtn"><i class="fa-solid fa-check-double"></i> Complete Consultation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DOCTOR PROFILE EDIT MODAL -->
+    <div class="modal-overlay" id="docProfileModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('docProfileModal')">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-pen"></i> Edit Doctor Professional Profile</h3>
+                <p>Update credentials, OPD room, and profile image URL</p>
+            </div>
+            <form id="docProfileForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Doctor Full Name *</label>
+                        <input type="text" id="editDocName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Qualifications *</label>
+                        <input type="text" id="editDocQual" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" id="editDocDept" readonly style="background: #f1f5f9;">
+                    </div>
+                    <div class="form-group">
+                        <label>Consultation Fee (₹)</label>
+                        <input type="number" id="editDocFee" min="0">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Profile Picture / Photo (Upload File or URL)</label>
+                    <input type="file" id="editDocPhotoFile" accept="image/*" style="margin-bottom: 0.35rem; font-size: 0.8rem;">
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="text" id="editDocAvatar" placeholder="Or enter Image URL (e.g. https://...)" style="flex: 1;">
+                        <button type="button" class="btn btn-outline btn-sm" style="color: var(--color-danger); border-color: #fecaca;" onclick="deleteDoctorPhoto()" title="Remove current photo"><i class="fa-solid fa-trash"></i> Remove Photo</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>OPD Room Location</label>
+                    <input type="text" id="editDocRoom" placeholder="e.g. Room 201, 2nd Floor">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('docProfileModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DOCTOR RESUME / CERTIFICATE UPLOAD MODAL -->
+    <div class="modal-overlay" id="docResumeModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('docResumeModal')">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-pdf"></i> Upload Professional Resume / Medical Registration Certificate</h3>
+                <p>Upload your document file or link reference for hospital administration verification</p>
+            </div>
+            <form id="docResumeForm">
+                <div class="form-group">
+                    <label>Medical Council License / Registration No.</label>
+                    <input type="text" id="editDocLicense" placeholder="e.g. TNMC-2018-84729" required>
+                </div>
+                <div class="form-group">
+                    <label>Resume / Certificate Document File or URL *</label>
+                    <input type="file" id="editDocResumeFile" accept=".pdf,.doc,.docx,image/*" style="margin-bottom: 0.35rem; font-size: 0.8rem;">
+                    <input type="text" id="editDocResumeUrl" placeholder="Or enter Document URL (e.g. https://...)">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('docResumeModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-upload"></i> Save Document</button>
                 </div>
             </form>
         </div>

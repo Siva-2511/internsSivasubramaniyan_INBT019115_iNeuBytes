@@ -24,11 +24,7 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
-                <div class="logo-text">
-                    <span>Your<strong>Care</strong></span>
-                    <small>Contact & Helplines</small>
-                </div>
+                <img src="images/logo.png" alt="YourCare Hospital Logo" style="height: 42px; width: auto; object-fit: contain;">
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -112,14 +108,49 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="app-footer">
-        <div class="container text-center">
-            <p>&copy; 2026 YourCare Hospital & Medical Center. Course ID: WBINB20726 (Major Project).</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">
+                        <img src="images/logo.png" alt="YourCare Hospital Logo" style="height: 36px; width: auto; object-fit: contain;">
+                    </div>
+                    <p>Dedicated to providing comprehensive medical services, charitable free OPD consultations, and 24x7 emergency medical support.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="departments.html">Departments Directory</a></li>
+                        <li><a href="login.html?role=patient">Book OPD Appointment</a></li>
+                        <li><a href="contact.html">Emergency & Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hospital Portals</h4>
+                    <ul>
+                        <li><a href="login.html?role=patient"><i class="fa-solid fa-angle-right"></i> Patient Medical Portal</a></li>
+                        <li><a href="login.html?role=doctor"><i class="fa-solid fa-angle-right"></i> Doctor Consultation Portal</a></li>
+                        <li><a href="login.html?role=admin"><i class="fa-solid fa-angle-right"></i> Hospital Administrator Portal</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Emergency & Helplines</h4>
+                    <p><i class="fa-solid fa-phone" style="color: var(--brand-green);"></i> 044-24567890</p>
+                    <p><i class="fa-solid fa-headset" style="color: var(--brand-green);"></i> 1800-200-4567 (Toll-Free)</p>
+                    <p><i class="fa-solid fa-location-dot" style="color: var(--brand-green);"></i> 45 Health Avenue, Medical Enclave, Chennai, Tamil Nadu, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 YourCare Hospital & Medical Center. Major Project - Course ID: WBINB20726.</p>
+                <p>Designed for Healthcare Management & Internship Submission</p>
+            </div>
         </div>
     </footer>
 
     <script src="js/api.js"></script>
     <script src="js/auth.js"></script>
+    <script src="js/voice-assistant.js"></script>
     <script>
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();

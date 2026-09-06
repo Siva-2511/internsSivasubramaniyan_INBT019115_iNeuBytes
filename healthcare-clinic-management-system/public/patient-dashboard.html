@@ -1,271 +1,270 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YourCare Hospital - Patient Medical Portal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <!-- TOP BAR -->
-    <div class="top-notice-bar">
-        <div class="container d-flex-between">
-            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital &bull; Patient Self-Service Portal</span></div>
-            <div><span><i class="fa-solid fa-phone"></i> Emergency Desk: 044-24567890</span></div>
-        </div>
-    </div>
-
-    <!-- MAIN NAVBAR -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
-                <div class="logo-text">
-                    <span>Your<strong>Care</strong></span>
-                    <small>Patient Portal</small>
-                </div>
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="departments.html">Departments</a></li>
-                <li><a href="contact.html">Emergency & Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <button onclick="Auth.logout()" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- MAIN DASHBOARD CONTENT -->
-    <main class="dashboard-container container">
-
-        <!-- PATIENT PROFILE BANNER -->
-        <div class="user-banner">
-            <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
-                <div class="doc-avatar" style="width: 60px; height: 60px; font-size: 1.6rem; margin-bottom: 0; background: rgba(255,255,255,0.15); color: #ffffff; border-color: rgba(255,255,255,0.3);">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-                <div>
-                    <h2 id="patNameDisplay">Loading Patient Profile...</h2>
-                    <p id="patMetaDisplay">Registered Patient Record &bull; Medical Care ID</p>
-                </div>
-            </div>
-            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                <button class="btn btn-primary" onclick="openBookModal()"><i class="fa-regular fa-calendar-plus"></i> Book OPD Appointment</button>
-                <button class="btn btn-outline" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" onclick="openEditProfileModal()"><i class="fa-solid fa-user-pen"></i> Edit Profile</button>
-            </div>
-        </div>
-
-        <!-- DASHBOARD GRID -->
-        <div class="grid-2-cols">
-            
-            <!-- LEFT: APPOINTMENT HISTORY -->
-            <div class="card">
-                <div class="card-header d-flex-between">
-                    <div>
-                        <h3><i class="fa-regular fa-calendar-check"></i> My OPD Appointments</h3>
-                        <p>Scheduled visits and consultation status</p>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>APT ID</th>
-                                <th>Doctor</th>
-                                <th>Department</th>
-                                <th>Date & Time</th>
-                                <th>Fee</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="patientAptsTableBody">
-                            <tr><td colspan="7" class="text-center" style="padding: 2rem;">Loading appointments...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- RIGHT: MEDICAL RECORDS & PRESCRIPTIONS -->
-            <div class="card">
-                <div class="card-header">
-                    <h3><i class="fa-solid fa-file-prescription"></i> Medical Records & Prescriptions</h3>
-                    <p>Clinical diagnoses and medication prescribed by doctors</p>
-                </div>
-                <div id="patientPrescriptionsList" style="display: flex; flex-direction: column; gap: 1rem; max-height: 480px; overflow-y: auto;">
-                    <div style="text-align: center; padding: 2rem; color: #64748b;">Loading medical records...</div>
-                </div>
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- BOOK APPOINTMENT MODAL -->
-    <div class="modal-overlay" id="bookModal">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeModal('bookModal')">&times;</button>
-            <div class="modal-header">
-                <h3><i class="fa-regular fa-calendar-plus"></i> Schedule OPD Appointment</h3>
-                <p>Select doctor, specialty, and preferred appointment time</p>
-            </div>
-            <form id="bookForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Select Doctor *</label>
-                        <select id="bookDoctorSelect" required>
-                            <option value="">-- Choose Doctor --</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Department</label>
-                        <input type="text" id="bookDeptDisplay" readonly placeholder="Auto-selected">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Appointment Date *</label>
-                        <input type="date" id="bookDateInput" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Time Slot *</label>
-                        <input type="text" id="bookSlotInput" placeholder="e.g. 10:30 AM" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Consultation Fee</label>
-                        <input type="text" id="bookFeeDisplay" readonly placeholder="Auto-calculated">
-                    </div>
-                    <div class="form-group">
-                        <label>Reason / Symptoms (Optional)</label>
-                        <input type="text" id="bookSymptomsInput" placeholder="e.g. Fever, routine checkup">
-                    </div>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-outline" onclick="closeModal('bookModal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="bookSubmitBtn"><i class="fa-solid fa-check"></i> Confirm Appointment</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- EDIT PROFILE MODAL -->
-    <div class="modal-overlay" id="profileModal">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeModal('profileModal')">&times;</button>
-            <div class="modal-header">
-                <h3><i class="fa-solid fa-user-pen"></i> Update Personal Profile</h3>
-                <p>Edit contact and medical information</p>
-            </div>
-            <form id="profileForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="editPatName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number *</label>
-                        <input type="tel" id="editPatPhone" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Age</label>
-                        <input type="number" id="editPatAge" min="1" max="120">
-                    </div>
-                    <div class="form-group">
-                        <label>Gender</label>
-                        <select id="editPatGender">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Blood Group</label>
-                    <select id="editPatBlood">
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                    </select>
-                </div>
-                <div class="modal-actions">
-                    <button type="button" class="btn btn-outline" onclick="closeModal('profileModal')">Cancel</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- RECEIPT SLIP MODAL -->
-    <div class="modal-overlay" id="slipModal">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeModal('slipModal')">&times;</button>
-            <div class="printable-slip" id="printableSlip">
-                <div class="d-flex-between" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1rem;">
-                    <div class="logo">
-                        <div class="logo-icon" style="width: 32px; height: 32px; font-size: 1rem;"><i class="fa-solid fa-hospital"></i></div>
-                        <div class="logo-text">
-                            <span style="font-size: 1rem;">Care<strong>Point</strong></span>
-                            <small>Appointment Receipt</small>
-                        </div>
-                    </div>
-                    <div>
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">Appointment Reference:</span>
-                        <strong style="display:block; color: var(--brand-green);" id="slipId">APT-2026-0000</strong>
-                    </div>
-                </div>
-                <div class="form-row" style="margin-bottom: 0.75rem;">
-                    <div>
-                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Patient Name</small>
-                        <strong style="display: block; font-size: 0.9rem;" id="slipPatient">Sivasubramaniyan G</strong>
-                        <small id="slipPhone" style="color: var(--text-muted);">9876543210</small>
-                    </div>
-                    <div>
-                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Consulting Doctor</small>
-                        <strong style="display: block; font-size: 0.9rem;" id="slipDoctor">Dr. Rajesh Sharma</strong>
-                        <small id="slipDept" style="color: var(--text-muted);">Cardiology</small>
-                    </div>
-                </div>
-                <div class="form-row" style="margin-bottom: 0.75rem;">
-                    <div>
-                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Appointment Date & Time</small>
-                        <strong style="display: block; font-size: 0.9rem;" id="slipDate">22 Aug 2026</strong>
-                        <small id="slipSlot" style="color: var(--text-muted);">10:30 AM</small>
-                    </div>
-                    <div>
-                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Consultation Fee</small>
-                        <strong style="display: block; font-size: 1rem; color: var(--brand-green);" id="slipFee">₹600</strong>
-                        <small style="color: var(--text-muted);" id="slipFeeNote">Hospital Desk</small>
-                    </div>
-                </div>
-                <div style="background-color: var(--bg-muted); padding: 0.65rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--text-muted);">
-                    <i class="fa-solid fa-circle-info"></i> Please bring this appointment slip to the hospital reception desk 15 minutes before your scheduled appointment time.
-                </div>
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Receipt</button>
-                <button class="btn btn-primary" onclick="closeModal('slipModal')">Done</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/patient-dashboard.js"></script>
-</body>
-</html>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourCare Hospital - Patient Medical Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-notice-bar">
+        <div class="container d-flex-between">
+            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital &bull; Patient Self-Service Portal</span></div>
+            <div><span><i class="fa-solid fa-phone"></i> Emergency Desk: 044-24567890</span></div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="YourCare Hospital Logo" style="height: 42px; width: auto; object-fit: contain;">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="contact.html">Emergency & Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="btn btn-outline btn-sm" onclick="window.voiceAssistant && window.voiceAssistant.toggleVoice()" title="Toggle Voice Assistant" style="color: var(--brand-green); border-color: var(--brand-green-border);">
+                    <i class="fa-solid fa-microphone"></i> Voice Assistant
+                </button>
+                <button onclick="Auth.logout()" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN DASHBOARD CONTENT -->
+    <main class="dashboard-container container">
+
+        <!-- PATIENT PROFILE BANNER -->
+        <div class="user-banner">
+            <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+                <div id="patAvatarContainer" class="doc-avatar" style="width: 65px; height: 65px; font-size: 1.6rem; margin-bottom: 0; background: rgba(255,255,255,0.15); color: #ffffff; border: 2px solid rgba(255,255,255,0.4); border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div>
+                    <h2 id="patNameDisplay">Loading Patient Profile...</h2>
+                    <p id="patMetaDisplay">Registered Patient Record &bull; Medical Care ID</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="openBookModal()"><i class="fa-regular fa-calendar-plus"></i> Book OPD Appointment</button>
+                <button class="btn btn-outline" style="color: #ffffff; border-color: rgba(255,255,255,0.4);" onclick="openEditProfileModal()"><i class="fa-solid fa-user-pen"></i> Edit Profile</button>
+            </div>
+        </div>
+
+        <!-- DASHBOARD GRID -->
+        <div class="grid-2-cols">
+            
+            <!-- LEFT: APPOINTMENT HISTORY -->
+            <div class="card">
+                <div class="card-header d-flex-between">
+                    <div>
+                        <h3><i class="fa-regular fa-calendar-check"></i> My OPD Appointments</h3>
+                        <p>Scheduled visits and consultation status</p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>APT ID</th>
+                                <th>Doctor</th>
+                                <th>Department</th>
+                                <th>Date & Time</th>
+                                <th>Fee</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientAptsTableBody">
+                            <tr><td colspan="7" class="text-center" style="padding: 2rem;">Loading appointments...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- RIGHT: MEDICAL RECORDS & PRESCRIPTIONS -->
+            <div class="card">
+                <div class="card-header d-flex-between">
+                    <div>
+                        <h3><i class="fa-solid fa-file-prescription"></i> Medical Records & Prescriptions</h3>
+                        <p>Clinical diagnoses and medication prescribed by doctors</p>
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="window.voiceAssistant && window.voiceAssistant.readPrescriptions()"><i class="fa-solid fa-volume-high"></i> Read Out Loud</button>
+                </div>
+                <div id="patientPrescriptionsList" style="display: flex; flex-direction: column; gap: 1rem; max-height: 480px; overflow-y: auto;">
+                    <div style="text-align: center; padding: 2rem; color: #64748b;">Loading medical records...</div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- BOOK APPOINTMENT MODAL -->
+    <div class="modal-overlay" id="bookModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('bookModal')">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-regular fa-calendar-plus"></i> Schedule OPD Appointment</h3>
+                <p>Select doctor, specialty, and preferred appointment time</p>
+            </div>
+            <form id="bookForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Select Doctor *</label>
+                        <select id="bookDoctorSelect" required>
+                            <option value="">-- Choose Doctor --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Department</label>
+                        <input type="text" id="bookDeptDisplay" readonly placeholder="Auto-selected">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Appointment Date *</label>
+                        <input type="date" id="bookDateInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time Slot *</label>
+                        <input type="text" id="bookSlotInput" placeholder="e.g. 10:30 AM" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Consultation Fee</label>
+                        <input type="text" id="bookFeeDisplay" readonly placeholder="Auto-calculated">
+                    </div>
+                    <div class="form-group">
+                        <label>Reason / Symptoms (Optional)</label>
+                        <input type="text" id="bookSymptomsInput" placeholder="e.g. Fever, routine checkup">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('bookModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="bookSubmitBtn"><i class="fa-solid fa-check"></i> Confirm Appointment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT PROFILE MODAL -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('profileModal')">&times;</button>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-pen"></i> Update Personal Profile</h3>
+                <p>Edit contact, profile photo, and medical information</p>
+            </div>
+            <form id="profileForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="editPatName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="editPatPhone" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" id="editPatAge" min="1" max="120">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="editPatGender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label>Profile Picture (Upload File or URL)</label>
+                        <input type="file" id="editPatPhotoFile" accept="image/*" style="margin-bottom: 0.35rem; font-size: 0.8rem;">
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="text" id="editPatAvatarUrl" placeholder="Or enter Image URL (e.g. https://...)" style="flex: 1;">
+                            <button type="button" class="btn btn-outline btn-sm" style="color: var(--color-danger); border-color: #fecaca;" onclick="deletePatientPhoto()" title="Remove current photo"><i class="fa-solid fa-trash"></i> Remove Photo</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('profileModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- RECEIPT SLIP MODAL -->
+    <div class="modal-overlay" id="slipModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal('slipModal')">&times;</button>
+            <div class="printable-slip" id="printableSlip">
+                <div class="d-flex-between" style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+                    <div class="logo">
+                        <div class="logo-icon" style="width: 32px; height: 32px; font-size: 1rem;"><i class="fa-solid fa-hospital"></i></div>
+                        <div class="logo-text">
+                            <span style="font-size: 1rem;">Your<strong>Care</strong></span>
+                            <small>Appointment Receipt</small>
+                        </div>
+                    </div>
+                    <div>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Appointment Reference:</span>
+                        <strong style="display:block; color: var(--brand-green);" id="slipId">APT-2026-0000</strong>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-bottom: 0.75rem;">
+                    <div>
+                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Patient Name</small>
+                        <strong style="display: block; font-size: 0.9rem;" id="slipPatient">Sivasubramaniyan G</strong>
+                        <small id="slipPhone" style="color: var(--text-muted);">9876543210</small>
+                    </div>
+                    <div>
+                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Consulting Doctor</small>
+                        <strong style="display: block; font-size: 0.9rem;" id="slipDoctor">Dr. Rajesh Sharma</strong>
+                        <small id="slipDept" style="color: var(--text-muted);">Cardiology</small>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-bottom: 0.75rem;">
+                    <div>
+                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Appointment Date & Time</small>
+                        <strong style="display: block; font-size: 0.9rem;" id="slipDate">22 Aug 2026</strong>
+                        <small id="slipSlot" style="color: var(--text-muted);">10:30 AM</small>
+                    </div>
+                    <div>
+                        <small style="color: var(--text-muted); text-transform: uppercase; font-size: 0.7rem;">Consultation Fee</small>
+                        <strong style="display: block; font-size: 1rem; color: var(--brand-green);" id="slipFee">₹600</strong>
+                        <small style="color: var(--text-muted);" id="slipFeeNote">Hospital Desk</small>
+                    </div>
+                </div>
+                <div style="background-color: var(--bg-muted); padding: 0.65rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--text-muted);">
+                    <i class="fa-solid fa-circle-info"></i> Please bring this appointment slip to the hospital reception desk 15 minutes before your scheduled appointment time.
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Receipt</button>
+                <button class="btn btn-primary" onclick="closeModal('slipModal')">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/voice-assistant.js"></script>
+    <script src="js/patient-dashboard.js"></script>
+</body>
+</html>

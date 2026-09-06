@@ -151,6 +151,24 @@ const API = {
         return await res.json();
     },
 
+    async forgotPassword(email, newPassword, role) {
+        const res = await fetch(`${API_BASE}/auth/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, newPassword, role })
+        });
+        return await res.json();
+    },
+
+    async updatePrescription(id, prescData) {
+        const res = await fetch(`${API_BASE}/prescriptions/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(prescData)
+        });
+        return await res.json();
+    },
+
     // Analytics
     async getAnalytics() {
         const res = await fetch(`${API_BASE}/analytics`);
