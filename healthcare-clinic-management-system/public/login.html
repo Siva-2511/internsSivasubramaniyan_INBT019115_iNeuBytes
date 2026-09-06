@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarePoint Hospital - Secure Portal Login</title>
+    <title>YourCare Hospital - Secure Portal Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     <!-- TOP NOTICE BAR -->
     <div class="top-notice-bar">
         <div class="container d-flex-between">
-            <div><span><i class="fa-solid fa-hospital"></i> CarePoint Hospital & Clinic Management System</span></div>
+            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Clinic Management System</span></div>
             <div><span><i class="fa-solid fa-phone"></i> Helpline: 044-24567890</span></div>
         </div>
     </div>
@@ -80,7 +80,7 @@
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    <input type="password" id="loginPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="loginSubmitBtn">
@@ -120,10 +120,10 @@
         function fillDemoCredentials(role) {
             setRole(role);
             if (role === 'admin') {
-                document.getElementById('loginEmail').value = 'admin@carepoint.org';
+                document.getElementById('loginEmail').value = 'admin@YourCare.org';
                 document.getElementById('loginPassword').value = 'admin123';
             } else if (role === 'doctor') {
-                document.getElementById('loginEmail').value = 'rajesh@carepoint.org';
+                document.getElementById('loginEmail').value = 'rajesh@YourCare.org';
                 document.getElementById('loginPassword').value = 'doc123';
             } else if (role === 'patient') {
                 document.getElementById('loginEmail').value = 'sivas@example.com';
@@ -168,3 +168,4 @@
     </script>
 </body>
 </html>
+

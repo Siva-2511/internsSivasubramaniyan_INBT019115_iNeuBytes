@@ -1,7 +1,7 @@
-{
-  "name": "carepoint-healthcare-management-system",
+﻿{
+  "name": "YourCare-healthcare-management-system",
   "version": "1.0.0",
-  "description": "CarePoint Hospital & Clinic Management System - Full Stack Node.js/Express & REST API (Major Project - WBINB20726)",
+  "description": "YourCare Hospital & Clinic Management System - Full Stack Node.js/Express & REST API (Major Project - WBINB20726)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -23,3 +23,4 @@
     "express": "^4.19.2"
   }
 }
+

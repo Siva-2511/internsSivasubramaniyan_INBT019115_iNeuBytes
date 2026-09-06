@@ -1,5 +1,5 @@
-/**
- * CarePoint Hospital & Clinic Management System
+﻿/**
+ * YourCare Hospital & Clinic Management System
  * Centralized REST API Client (communicating with Express backend)
  */
 
@@ -173,3 +173,4 @@ function showToast(message, type = 'success') {
         setTimeout(() => toast.remove(), 300);
     }, 3500);
 }
+

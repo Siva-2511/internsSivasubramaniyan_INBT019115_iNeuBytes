@@ -1,20 +1,20 @@
-# CarePoint Hospital - Healthcare & Clinic Management System (Major Project)
+﻿# YourCare Hospital - Healthcare & Clinic Management System (Major Project)
 **Course ID:** WBINB20726  
-**Internship Project:** Major Project — Full Stack Healthcare / Clinic Management System
+**Internship Project:** Major Project â€” Full Stack Healthcare / Clinic Management System
 
 ---
 
-## 📌 Project Overview
-The **CarePoint Healthcare & Clinic Management System** is a complete, full-stack web application developed using **Node.js, Express.js REST APIs, JSON Database persistence, semantic HTML5, modern CSS3, and JavaScript (ES6+)**.
+## ðŸ“Œ Project Overview
+The **YourCare Healthcare & Clinic Management System** is a complete, full-stack web application developed using **Node.js, Express.js REST APIs, JSON Database persistence, semantic HTML5, modern CSS3, and JavaScript (ES6+)**.
 
 The project implements **Role-Based Access Control (RBAC)** with separate modules and dashboards for:
-1. **Registered Patients**: Profile management, OPD appointment booking (Free General OPD ₹0 & Specialist OPD), appointment history tracking with printable slips, and electronic medical prescription records.
+1. **Registered Patients**: Profile management, OPD appointment booking (Free General OPD â‚¹0 & Specialist OPD), appointment history tracking with printable slips, and electronic medical prescription records.
 2. **Consultant Doctors**: Outpatient consultation queue, patient status updates (*Confirmed*, *Completed*, *Cancelled*), clinical diagnosis recording, and electronic prescription writing.
 3. **Hospital Administrators**: Full hospital operations dashboard with real-time analytics, Doctor Management (Full CRUD), Patient Records Management (Full CRUD), Appointment Management (Full CRUD & CSV Export), Department Directory (Full CRUD), and printable administrative reports.
 
 ---
 
-## 🚀 Key Modules & Features
+## ðŸš€ Key Modules & Features
 
 ### 1. Backend REST API (`server.js` & `data/db.json`)
 - Built with **Node.js** and **Express.js** providing a complete suite of REST endpoints:
@@ -35,7 +35,7 @@ The project implements **Role-Based Access Control (RBAC)** with separate module
 
 ### 3. Patient Self-Service Portal (`patient-dashboard.html`)
 - Patient profile banner with medical care metadata.
-- Interactive OPD appointment booking modal with dynamic doctor selector, time slot chips, and automated fee calculation (Free ₹0 vs Paid).
+- Interactive OPD appointment booking modal with dynamic doctor selector, time slot chips, and automated fee calculation (Free â‚¹0 vs Paid).
 - My Appointments list with inline status tracking, cancellation, and printable digital receipts (`APT-2026-XXXX`).
 - Electronic Medical Records & Prescriptions diagnosed by hospital physicians.
 
@@ -48,49 +48,49 @@ The project implements **Role-Based Access Control (RBAC)** with separate module
 - **System Overview**: Live KPI stat cards (Doctors, Free OPD Staff, Patients, Active Bookings, Clinical Depts), recent appointment feeds, and department load progress bars.
 - **Manage Doctors (Full CRUD)**: Add, edit, delete, search, and filter doctors by department and fee.
 - **Manage Patients (Full CRUD)**: Register, update, delete, search, and filter patients by gender.
-- **Appointment Desk (Full CRUD)**: Book consultations, inline status updates (*Confirmed* ➔ *Completed* ➔ *Cancelled*), search, and **Export to CSV**.
+- **Appointment Desk (Full CRUD)**: Book consultations, inline status updates (*Confirmed* âž” *Completed* âž” *Cancelled*), search, and **Export to CSV**.
 - **Department Management**: Directory of 8 clinical specialties with HODs and room allocations.
 - **Reports & Analytics**: Free vs Paid consultation metrics and 1-click printable administrative reports.
 
 ---
 
-## 🎨 Consistent Design System (Matching Tasks 1, 2 & 3)
+## ðŸŽ¨ Consistent Design System (Matching Tasks 1, 2 & 3)
 - **Palette**: Medical Emerald Green (`#059669`, `#10b981`), Deep Forest Slate (`#064e3b`, `#022c22`), Soft Mint Backgrounds (`#ecfdf5`), and Off-White surfaces (`#f8fafc`).
 - **Zero Blue & No AI Cliches**.
-- **Branding**: *CarePoint Hospital & Medical Center*, Chennai (`044-24567890`).
+- **Branding**: *YourCare Hospital & Medical Center*, Chennai (`044-24567890`).
 
 ---
 
-## 📂 Project Structure
+## ðŸ“‚ Project Structure
 ```
 healthcare-clinic-management-system/
-├── package.json                       # Node.js dependencies (express, cors)
-├── server.js                          # Express.js backend REST API server
-├── data/
-│   └── db.json                        # Relational database file (Users, Doctors, Patients, Appointments, Depts, Prescriptions)
-├── public/
-│   ├── index.html                     # Hospital Home Landing Page
-│   ├── login.html                     # Dedicated Login Page with role tabs & demo buttons
-│   ├── register.html                  # Dedicated Registration Page
-│   ├── patient-dashboard.html         # Dedicated Patient Medical Portal
-│   ├── doctor-dashboard.html          # Dedicated Doctor Consultation Portal
-│   ├── admin-dashboard.html           # Dedicated Hospital Administrator Portal
-│   ├── departments.html               # Medical Specialties Directory
-│   ├── contact.html                   # 24x7 Emergency Contact & Enquiry
-│   ├── css/
-│   │   └── style.css                  # Unified Medical Emerald Green stylesheet
-│   └── js/
-│       ├── api.js                     # Centralized REST API Fetch client
-│       ├── auth.js                    # Role session manager & route guard
-│       ├── patient-dashboard.js       # Patient dashboard logic & modal booking
-│       ├── doctor-dashboard.js        # Doctor queue controller & prescription writer
-│       └── admin-dashboard.js         # Admin full CRUD controller & CSV export
-└── README.md                          # Full Major Project technical submission report
+â”œâ”€â”€ package.json                       # Node.js dependencies (express, cors)
+â”œâ”€â”€ server.js                          # Express.js backend REST API server
+â”œâ”€â”€ data/
+â”‚   â””â”€â”€ db.json                        # Relational database file (Users, Doctors, Patients, Appointments, Depts, Prescriptions)
+â”œâ”€â”€ public/
+â”‚   â”œâ”€â”€ index.html                     # Hospital Home Landing Page
+â”‚   â”œâ”€â”€ login.html                     # Dedicated Login Page with role tabs & demo buttons
+â”‚   â”œâ”€â”€ register.html                  # Dedicated Registration Page
+â”‚   â”œâ”€â”€ patient-dashboard.html         # Dedicated Patient Medical Portal
+â”‚   â”œâ”€â”€ doctor-dashboard.html          # Dedicated Doctor Consultation Portal
+â”‚   â”œâ”€â”€ admin-dashboard.html           # Dedicated Hospital Administrator Portal
+â”‚   â”œâ”€â”€ departments.html               # Medical Specialties Directory
+â”‚   â”œâ”€â”€ contact.html                   # 24x7 Emergency Contact & Enquiry
+â”‚   â”œâ”€â”€ css/
+â”‚   â”‚   â””â”€â”€ style.css                  # Unified Medical Emerald Green stylesheet
+â”‚   â””â”€â”€ js/
+â”‚       â”œâ”€â”€ api.js                     # Centralized REST API Fetch client
+â”‚       â”œâ”€â”€ auth.js                    # Role session manager & route guard
+â”‚       â”œâ”€â”€ patient-dashboard.js       # Patient dashboard logic & modal booking
+â”‚       â”œâ”€â”€ doctor-dashboard.js        # Doctor queue controller & prescription writer
+â”‚       â””â”€â”€ admin-dashboard.js         # Admin full CRUD controller & CSV export
+â””â”€â”€ README.md                          # Full Major Project technical submission report
 ```
 
 ---
 
-## 🛠️ How to Run
+## ðŸ› ï¸ How to Run
 1. Open a terminal inside the project directory:
    ```bash
    cd D:\Download\task2\healthcare-clinic-management-system
@@ -104,6 +104,7 @@ healthcare-clinic-management-system/
    http://localhost:5000
    ```
 4. **Default Credentials for Evaluation**:
-   - **Admin:** `admin@carepoint.org` / `admin123` (or click "Admin (Sivasubramaniyan G)" demo button on `login.html`)
-   - **Doctor:** `rajesh@carepoint.org` / `doc123` (or click "Doctor (Dr. Rajesh Sharma)" demo button)
+   - **Admin:** `admin@YourCare.org` / `admin123` (or click "Admin (Sivasubramaniyan G)" demo button on `login.html`)
+   - **Doctor:** `rajesh@YourCare.org` / `doc123` (or click "Doctor (Dr. Rajesh Sharma)" demo button)
    - **Patient:** `sivas@example.com` / `pat123` (or click "Patient (Sivasubramaniyan G)" demo button)
+

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarePoint Hospital - Administrator Management Dashboard</title>
+    <title>Careme Hospital - Administrator Management Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
     <!-- TOP BAR -->
     <div class="top-notice-bar">
         <div class="container d-flex-between">
-            <div><span><i class="fa-solid fa-hospital"></i> CarePoint Hospital &bull; Hospital Central Administration Portal</span></div>
+            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital &bull; Hospital Central Administration Portal</span></div>
             <div><span><i class="fa-solid fa-user-shield"></i> Master Operations Controller</span></div>
         </div>
     </div>
@@ -48,7 +48,7 @@
         <div class="user-banner">
             <div>
                 <h2 id="admBannerName">Sivasubramaniyan G</h2>
-                <p>Hospital Administrator &bull; CarePoint Hospital & Medical Center</p>
+                <p>Hospital Administrator &bull; Careme Hospital & Medical Center</p>
             </div>
             <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
                 <button class="btn btn-primary" onclick="openDoctorModal()"><i class="fa-solid fa-user-plus"></i> Add Doctor</button>
@@ -162,7 +162,7 @@
                     </select>
                     <select id="docFeeFilter">
                         <option value="All">All Fees</option>
-                        <option value="Free">Free OPD (₹0)</option>
+                        <option value="Free">Free OPD (â‚¹0)</option>
                         <option value="Paid">Specialist Paid OPD</option>
                     </select>
                     <button class="btn btn-primary btn-sm" onclick="openDoctorModal()"><i class="fa-solid fa-user-plus"></i> Add Doctor</button>
@@ -303,7 +303,7 @@
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                         <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Total Appointments Booked:</span> <strong id="repTotalApts">0</strong></div>
-                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Free General OPD (₹0):</span> <strong style="color: var(--brand-green);" id="repFreeApts">0</strong></div>
+                        <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Free General OPD (â‚¹0):</span> <strong style="color: var(--brand-green);" id="repFreeApts">0</strong></div>
                         <div class="d-flex-between" style="padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);"><span>Specialist Paid OPD:</span> <strong id="repPaidApts">0</strong></div>
                         <div class="d-flex-between" style="padding: 0.5rem 0;"><span>Completed Consultations:</span> <strong id="repCompletedApts">0</strong></div>
                     </div>
@@ -371,7 +371,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Consultation Fee (₹) * (0 for Free General OPD)</label>
+                        <label>Consultation Fee (â‚¹) * (0 for Free General OPD)</label>
                         <input type="number" id="docInputFee" min="0" placeholder="0 or 600" required>
                     </div>
                     <div class="form-group">
@@ -524,7 +524,7 @@
                     <div class="form-group">
                         <label>Fee Structure *</label>
                         <select id="admDeptFeeTypeInput">
-                            <option value="Free General OPD">Free General OPD (₹0)</option>
+                            <option value="Free General OPD">Free General OPD (â‚¹0)</option>
                             <option value="Specialist OPD">Specialist Paid OPD</option>
                         </select>
                     </div>
@@ -542,3 +542,4 @@
     <script src="js/admin-dashboard.js"></script>
 </body>
 </html>
+

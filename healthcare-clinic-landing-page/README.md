@@ -1,15 +1,15 @@
-# CarePoint Clinic - Healthcare & Clinic Landing Page (Task 1)
+﻿# YourCare Clinic - Healthcare & Clinic Landing Page (Task 1)
 **Course ID:** WBINB20726  
 **Internship Task 1:** Healthcare / Clinic Landing Page
 
 ---
 
-## 📌 Project Overview
-The **CarePoint Clinic Landing Page** is a responsive, accessible website designed to provide patients and visitors with complete information about the clinic, clinical departments, duty doctors, patient testimonials, hospital location, and an interactive **Appointment Enquiry Form** with real-time client-side validation.
+## ðŸ“Œ Project Overview
+The **YourCare Clinic Landing Page** is a responsive, accessible website designed to provide patients and visitors with complete information about the clinic, clinical departments, duty doctors, patient testimonials, hospital location, and an interactive **Appointment Enquiry Form** with real-time client-side validation.
 
 ---
 
-## 🚀 Key Features
+## ðŸš€ Key Features
 
 ### 1. Landing Page Structure & Components
 - **Top Notice Bar**: Contact phone helpline (`044-24567890 / 1800-200-4567`), OPD hours, and clinic location.
@@ -34,7 +34,7 @@ The **CarePoint Clinic Landing Page** is a responsive, accessible website design
 
 ---
 
-## 🎨 Consistent Design System (Matching Task 2)
+## ðŸŽ¨ Consistent Design System (Matching Task 2)
 - **Theme**: Medical Emerald Green & Deep Forest Slate (`#064e3b`, `#059669`, `#10b981`, `#ecfdf5`, `#f8fafc`, `#ffffff`).
 - **Typography**: Inter (Google Fonts).
 - **Icons**: Font Awesome 6.
@@ -42,18 +42,19 @@ The **CarePoint Clinic Landing Page** is a responsive, accessible website design
 
 ---
 
-## 📂 Project Structure
+## ðŸ“‚ Project Structure
 ```
 healthcare-clinic-landing-page/
-├── index.html        # Semantic HTML5 layout and sections
-├── style.css         # Medical emerald green stylesheet & responsive grid
-├── script.js         # Navigation, scroll spy, and form validation
-└── README.md         # Submission report & setup guide
+â”œâ”€â”€ index.html        # Semantic HTML5 layout and sections
+â”œâ”€â”€ style.css         # Medical emerald green stylesheet & responsive grid
+â”œâ”€â”€ script.js         # Navigation, scroll spy, and form validation
+â””â”€â”€ README.md         # Submission report & setup guide
 ```
 
 ---
 
-## 🛠️ How to Run
+## ðŸ› ï¸ How to Run
 1. Open the folder `healthcare-clinic-landing-page`.
 2. Double-click `index.html` to open directly in any web browser.
 3. No build tools or Node.js required.
+

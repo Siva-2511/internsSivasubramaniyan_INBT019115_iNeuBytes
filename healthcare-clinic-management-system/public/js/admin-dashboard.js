@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Admin Dashboard Controller
  * Full CRUD for Doctors, Patients, Appointments, Departments, Analytics & Reports
  */
@@ -94,7 +94,7 @@ function renderOverview(analytics) {
     allAppointments.slice(0, 5).forEach(apt => {
         const tr = document.createElement('tr');
         const statusClass = apt.status === 'Confirmed' ? 'status-confirmed' : (apt.status === 'Completed' ? 'status-completed' : 'status-cancelled');
-        const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
+        const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
 
         tr.innerHTML = `
             <td><strong>${apt.id}</strong></td>
@@ -158,7 +158,7 @@ function renderDoctorsTable() {
 
     filtered.forEach(doc => {
         const tr = document.createElement('tr');
-        const feeText = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD</strong>` : `₹${doc.fee}`;
+        const feeText = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD</strong>` : `â‚¹${doc.fee}`;
 
         tr.innerHTML = `
             <td><strong>${doc.id}</strong></td>
@@ -305,7 +305,7 @@ function renderAppointmentsTable() {
     filtered.forEach(a => {
         const tr = document.createElement('tr');
         const statusClass = a.status === 'Confirmed' ? 'status-confirmed' : (a.status === 'Completed' ? 'status-completed' : 'status-cancelled');
-        const feeText = a.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${a.fee}`;
+        const feeText = a.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${a.fee}`;
 
         tr.innerHTML = `
             <td><strong>${a.id}</strong></td>
@@ -356,7 +356,7 @@ function openAppointmentModal() {
     allDoctors.forEach(doc => {
         const opt = document.createElement('option');
         opt.value = doc.id;
-        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : '₹' + doc.fee})`;
+        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : 'â‚¹' + doc.fee})`;
         select.appendChild(opt);
     });
 
@@ -439,7 +439,7 @@ function exportAppointmentsCSV() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `carepoint_hospital_appointments_${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `YourCare_hospital_appointments_${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     showToast('Exported appointments to CSV successfully!');
 }
@@ -554,3 +554,4 @@ function setupEventListeners() {
 function closeModal(id) {
     document.getElementById(id).classList.remove('active');
 }
+

@@ -1,5 +1,5 @@
-/**
- * CarePoint Clinic - Healthcare Landing Page (Task 1)
+﻿/**
+ * YourCare Clinic - Healthcare Landing Page (Task 1)
  * Clean, Standard, Well-Structured JavaScript
  */
 
@@ -188,9 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Store in LocalStorage for client-side persistence
             try {
-                const storedEnquiries = JSON.parse(localStorage.getItem("carepoint_enquiries_list") || "[]");
+                const storedEnquiries = JSON.parse(localStorage.getItem("YourCare_enquiries_list") || "[]");
                 storedEnquiries.unshift(enquiryData);
-                localStorage.setItem("carepoint_enquiries_list", JSON.stringify(storedEnquiries));
+                localStorage.setItem("YourCare_enquiries_list", JSON.stringify(storedEnquiries));
             } catch (err) {
                 console.warn("Could not save to LocalStorage:", err);
             }
@@ -240,3 +240,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+

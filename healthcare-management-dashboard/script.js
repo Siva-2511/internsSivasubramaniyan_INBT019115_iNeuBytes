@@ -1,5 +1,5 @@
-/**
- * CarePoint Hospital - Healthcare Management Dashboard (Task 3)
+﻿/**
+ * YourCare Hospital - Healthcare Management Dashboard (Task 3)
  * Full CRUD Operations, LocalStorage Persistence & Dynamic Statistics
  */
 
@@ -102,13 +102,25 @@ const DEFAULT_DOCTORS = [
         gender: "female",
         slots: "10:00 AM, 12:00 PM, 03:00 PM, 05:00 PM",
         bio: "Specialist ENT Surgeon treating sinus problems and hearing difficulties."
+    },
+    {
+        id: "DOC-69",
+        name: "Dr. Sivasubramaniyan G",
+        department: "Cardiology",
+        qualification: "MBBS, MS (Cardiology)",
+        experience: 20,
+        fee: 500,
+        room: "Cardiology Clinic, Room 420",
+        gender: "male",
+        slots: "08:00 AM, 10:00 AM, 12:00 PM, 02:00 PM, 04:00 PM, 06:00 PM",
+        bio: "Senior Consultant Cardiologist specializing in echocardiography, preventative cardiac care, hypertension control, and post-stent management."
     }
 ];
 
 const DEFAULT_PATIENTS = [
     {
         id: "PAT-801",
-        name: "Sivasubramaniyan G",
+        name: "Siva",
         age: 24,
         gender: "Male",
         phone: "9876543210",
@@ -151,7 +163,7 @@ const DEFAULT_PATIENTS = [
 const DEFAULT_APPOINTMENTS = [
     {
         id: "APT-2026-1042",
-        patientName: "Sivasubramaniyan G",
+        patientName: "Siva",
         patientPhone: "9876543210",
         doctorName: "Dr. Meenakshi Sundaram",
         department: "General Medicine",
@@ -203,14 +215,15 @@ const DEFAULT_DEPARTMENTS = [
     { id: "DEP-05", name: "Orthopedics", hod: "Dr. Arun Venkataraman", doctorsCount: 1, location: "Block C, 1st Floor", feeType: "Specialist OPD" },
     { id: "DEP-06", name: "Neurology", hod: "Dr. Suresh Menon", doctorsCount: 1, location: "Block C, 3rd Floor", feeType: "Specialist OPD" },
     { id: "DEP-07", name: "Ophthalmology", hod: "Dr. Karthik Iyer", doctorsCount: 1, location: "Block B, 1st Floor", feeType: "Specialist OPD" },
-    { id: "DEP-08", name: "ENT", hod: "Dr. Shalini Rao", doctorsCount: 1, location: "Block B, 2nd Floor", feeType: "Specialist OPD" }
+    { id: "DEP-08", name: "ENT", hod: "Dr. Shalini Rao", doctorsCount: 1, location: "Block B, 2nd Floor", feeType: "Specialist OPD" },
+    { id: "DEP-09", name: "Cardiology", hod: "Dr. Sivasubramaniyan G", doctorsCount: 1, location: "Block D, 2nd Floor", feeType: "Specialist OPD" }
 ];
 
 // LocalStorage Keys
-const KEY_DOCS = "carepoint_admin_doctors";
-const KEY_PATS = "carepoint_admin_patients";
-const KEY_APTS = "carepoint_admin_appointments";
-const KEY_DEPTS = "carepoint_admin_departments";
+const KEY_DOCS = "YourCare_admin_doctors";
+const KEY_PATS = "YourCare_admin_patients";
+const KEY_APTS = "YourCare_admin_appointments";
+const KEY_DEPTS = "YourCare_admin_departments";
 
 // State
 let doctors = [];
@@ -280,7 +293,7 @@ function setupCurrentDateDisplay() {
 function switchView(viewName) {
     // Hide all view panels
     document.querySelectorAll(".view-panel").forEach(p => p.classList.remove("active"));
-    
+
     // Show targeted panel
     const targetPanel = document.getElementById(`${viewName}-view`);
     if (targetPanel) targetPanel.classList.add("active");
@@ -387,7 +400,7 @@ function renderDashboardOverview() {
         recentList.forEach(apt => {
             const tr = document.createElement("tr");
             const statusClass = apt.status === "Confirmed" ? "status-confirmed" : (apt.status === "Completed" ? "status-completed" : "status-cancelled");
-            const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
+            const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
 
             tr.innerHTML = `
                 <td><strong>${apt.id}</strong></td>
@@ -430,7 +443,7 @@ function renderDashboardOverview() {
     doctors.slice(0, 4).forEach(doc => {
         const card = document.createElement("div");
         card.className = "on-duty-card";
-        const feeText = doc.fee === 0 ? "FREE OPD" : `₹${doc.fee}`;
+        const feeText = doc.fee === 0 ? "FREE OPD" : `â‚¹${doc.fee}`;
 
         card.innerHTML = `
             <div class="on-duty-avatar">
@@ -455,7 +468,7 @@ function renderDoctorsTable() {
     const feeVal = document.getElementById("doctorFeeTypeFilter").value;
 
     let filtered = doctors.filter(doc => {
-        const matchesSearch = !searchVal || 
+        const matchesSearch = !searchVal ||
             doc.name.toLowerCase().includes(searchVal) ||
             doc.qualification.toLowerCase().includes(searchVal) ||
             doc.department.toLowerCase().includes(searchVal) ||
@@ -480,7 +493,7 @@ function renderDoctorsTable() {
 
     filtered.forEach(doc => {
         const tr = document.createElement("tr");
-        const feeDisplay = doc.fee === 0 ? `<strong style="color: var(--brand-green);"><i class="fa-solid fa-gift"></i> FREE OPD</strong>` : `<strong>₹${doc.fee}</strong>`;
+        const feeDisplay = doc.fee === 0 ? `<strong style="color: var(--brand-green);"><i class="fa-solid fa-gift"></i> FREE OPD</strong>` : `<strong>â‚¹${doc.fee}</strong>`;
 
         tr.innerHTML = `
             <td><strong>${doc.id}</strong></td>
@@ -557,7 +570,7 @@ function renderPatientsTable() {
     const genderVal = document.getElementById("patientGenderFilter").value;
 
     let filtered = patients.filter(pat => {
-        const matchesSearch = !searchVal || 
+        const matchesSearch = !searchVal ||
             pat.name.toLowerCase().includes(searchVal) ||
             pat.phone.includes(searchVal) ||
             pat.email.toLowerCase().includes(searchVal) ||
@@ -646,7 +659,7 @@ function renderAppointmentsTable() {
     const statusVal = document.getElementById("appointmentStatusFilter").value;
 
     let filtered = appointments.filter(apt => {
-        const matchesSearch = !searchVal || 
+        const matchesSearch = !searchVal ||
             apt.id.toLowerCase().includes(searchVal) ||
             apt.patientName.toLowerCase().includes(searchVal) ||
             apt.doctorName.toLowerCase().includes(searchVal) ||
@@ -667,7 +680,7 @@ function renderAppointmentsTable() {
     filtered.forEach(apt => {
         const tr = document.createElement("tr");
         const statusClass = apt.status === "Confirmed" ? "status-confirmed" : (apt.status === "Completed" ? "status-completed" : "status-cancelled");
-        const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
+        const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
 
         tr.innerHTML = `
             <td><strong>${apt.id}</strong></td>
@@ -726,7 +739,7 @@ function openAppointmentModal() {
     doctors.forEach(doc => {
         const opt = document.createElement("option");
         opt.value = doc.id;
-        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : '₹' + doc.fee})`;
+        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : 'â‚¹' + doc.fee})`;
         doctorSelect.appendChild(opt);
     });
 
@@ -765,7 +778,7 @@ function renderDepartmentsTable() {
     const searchVal = document.getElementById("departmentSearchInput").value.trim().toLowerCase();
 
     let filtered = departments.filter(dep => {
-        return !searchVal || 
+        return !searchVal ||
             dep.name.toLowerCase().includes(searchVal) ||
             dep.hod.toLowerCase().includes(searchVal) ||
             dep.location.toLowerCase().includes(searchVal);
@@ -1017,3 +1030,4 @@ function setupSearchAndFilterHandlers() {
     // Department search
     document.getElementById("departmentSearchInput").addEventListener("input", renderDepartmentsTable);
 }
+

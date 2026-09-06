@@ -9,7 +9,7 @@
 
 This repository contains all internship project submissions for the **iNeuBytes Web Development Internship** program. The projects are organized into separate folders as required by the submission guidelines.
 
-**Hospital Brand Used:** CarePoint Hospital & Medical Center, Chennai
+**Hospital Brand Used:** YourCare Hospital & Medical Center, Chennai
 
 ---
 
@@ -30,7 +30,7 @@ internsSivasubramaniyan_INBT019115_iNeuBytes/
 
 **Folder:** `healthcare-clinic-landing-page/`
 
-A fully responsive clinic landing page for **CarePoint Hospital & Medical Center**.
+A fully responsive clinic landing page for **YourCare Hospital & Medical Center**.
 
 **Features:**
 - Sticky navigation with scroll-spy active link highlighting
@@ -160,8 +160,8 @@ healthcare-clinic-management-system/
 
 | Role | Name | Email | Password |
 |---|---|---|---|
-| Administrator | Sivasubramaniyan G | admin@carepoint.org | admin123 |
-| Doctor | Dr. Rajesh Sharma | rajesh@carepoint.org | doc123 |
+| Administrator | Sivasubramaniyan G | admin@YourCare.org | admin123 |
+| Doctor | Dr. Rajesh Sharma | rajesh@YourCare.org | doc123 |
 | Patient | Sivasubramaniyan G | sivas@example.com | pat123 |
 
 ### Dashboards
@@ -190,11 +190,11 @@ npm start
 
 | Field | Details |
 |---|---|
-| Hospital | CarePoint Hospital & Medical Center |
+| Hospital | YourCare Hospital & Medical Center |
 | Address | 45 Health Avenue, Medical Enclave, Chennai, Tamil Nadu 600001 |
 | Phone | 044-24567890 |
 | Emergency | 1800-200-4567 (24x7) |
-| Email | reception@carepoint-hospital.org |
+| Email | reception@YourCare-hospital.org |
 | OPD Hours | Mon - Sat: 8:00 AM - 8:00 PM |
 
 ---
@@ -212,3 +212,4 @@ npm start
 ---
 
 *iNeuBytes Internship Final Submission — August 2026*
+

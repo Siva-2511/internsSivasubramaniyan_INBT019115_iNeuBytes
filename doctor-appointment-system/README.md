@@ -1,15 +1,15 @@
-# CarePoint Hospital - Doctor Appointment Booking System
+﻿# YourCare Hospital - Doctor Appointment Booking System
 **Course ID:** WBINB20726  
 **Internship Task 2:** Doctor Appointment Booking System
 
 ---
 
-## 📌 Project Overview
-The **CarePoint Hospital Doctor Appointment Booking System** is a responsive web application designed for patients to discover on-duty doctors across clinical departments, check OPD timings and consultation fees (including Free General OPD), register appointments seamlessly, and manage their booking records with offline `localStorage` persistence.
+## ðŸ“Œ Project Overview
+The **YourCare Hospital Doctor Appointment Booking System** is a responsive web application designed for patients to discover on-duty doctors across clinical departments, check OPD timings and consultation fees (including Free General OPD), register appointments seamlessly, and manage their booking records with offline `localStorage` persistence.
 
 ---
 
-## 🚀 Key Features
+## ðŸš€ Key Features
 
 ### 1. User Module & Navigation
 - **Top Notice Bar**: Hospital emergency helplines, OPD timings, and hospital location.
@@ -21,14 +21,14 @@ The **CarePoint Hospital Doctor Appointment Booking System** is a responsive web
 - **Live Search**: Instant multi-attribute search by doctor name, qualification, or condition.
 - **Multi-Level Filters**:
   - Filter by Department
-  - Filter by Fee Type (Free OPD Doctors ₹0 vs Specialist Paid OPD)
+  - Filter by Fee Type (Free OPD Doctors â‚¹0 vs Specialist Paid OPD)
   - Sort by Fee (Free to Low), Clinical Experience, or Patient Rating
 - **Doctor Profile Cards**: Doctor details, clinical qualification, experience, OPD fee, rating, and available time slots.
 - **Doctor Profile Modal**: Complete popup view showing clinical bio, OPD room location, and consultation hours.
 
 ### 3. Interactive OPD Appointment Booking
 - **Doctor Auto-Select**: Choose doctor from card or dropdown with automatic department, room, and fee calculation.
-- **Free vs Paid Support**: Handles ₹0 Free General OPD bookings as well as counter-payable specialist bookings.
+- **Free vs Paid Support**: Handles â‚¹0 Free General OPD bookings as well as counter-payable specialist bookings.
 - **Date & Slot Picker**: Past date prevention (`min` date = today) and interactive time slot selector chips (Morning, Afternoon, Evening).
 - **Client-Side Form Validation**:
   - Mandatory doctor and time slot selection
@@ -51,18 +51,18 @@ The **CarePoint Hospital Doctor Appointment Booking System** is a responsive web
 
 ---
 
-## 📂 Project Structure
+## ðŸ“‚ Project Structure
 ```
 doctor-appointment-system/
-├── index.html        # Semantic HTML5 layout and modal dialogs
-├── style.css         # Medical green theme, CSS Grid/Flexbox, responsive design
-├── script.js         # Core application logic, dataset, validation & localStorage
-└── README.md         # Project documentation for internship submission
+â”œâ”€â”€ index.html        # Semantic HTML5 layout and modal dialogs
+â”œâ”€â”€ style.css         # Medical green theme, CSS Grid/Flexbox, responsive design
+â”œâ”€â”€ script.js         # Core application logic, dataset, validation & localStorage
+â””â”€â”€ README.md         # Project documentation for internship submission
 ```
 
 ---
 
-## 💻 Tech Stack
+## ðŸ’» Tech Stack
 - **HTML5**: Semantic elements, accessible forms, modal dialogs
 - **CSS3**: CSS Custom Properties, Flexbox, CSS Grid, Media queries, Print styling
 - **JavaScript (ES6+)**: DOM manipulation, Array methods, LocalStorage API, Event handling
@@ -70,7 +70,8 @@ doctor-appointment-system/
 
 ---
 
-## 🛠️ How to Run
+## ðŸ› ï¸ How to Run
 1. Open the project folder `doctor-appointment-system`.
 2. Double-click or open `index.html` in Google Chrome, Microsoft Edge, Firefox, or any modern web browser.
 3. No build tools, Node.js, or complex installations are required.
+

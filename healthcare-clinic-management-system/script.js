@@ -1,5 +1,5 @@
-/**
- * CarePoint Hospital - Healthcare & Clinic Management System (Major Project)
+﻿/**
+ * YourCare Hospital - Healthcare & Clinic Management System (Major Project)
  * Multi-Role Support (Admin, Doctor, Patient), Full CRUD, Prescriptions & Relational LocalStorage
  */
 
@@ -320,7 +320,7 @@ function renderAdminDashboard() {
     appointments.slice(0, 5).forEach(apt => {
         const tr = document.createElement("tr");
         const statusClass = apt.status === "Confirmed" ? "status-confirmed" : (apt.status === "Completed" ? "status-completed" : "status-cancelled");
-        const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
+        const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
         tr.innerHTML = `
             <td><strong>${apt.id}</strong></td>
             <td>${apt.patientName}</td>
@@ -403,7 +403,7 @@ function renderAdminDoctorsTable() {
 
     filtered.forEach(doc => {
         const tr = document.createElement("tr");
-        const feeText = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD</strong>` : `₹${doc.fee}`;
+        const feeText = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD</strong>` : `â‚¹${doc.fee}`;
         tr.innerHTML = `
             <td><strong>${doc.id}</strong></td>
             <td><strong>${doc.name}</strong></td>
@@ -539,7 +539,7 @@ function renderAdminAppointmentsTable() {
     filtered.forEach(a => {
         const tr = document.createElement("tr");
         const statusClass = a.status === "Confirmed" ? "status-confirmed" : (a.status === "Completed" ? "status-completed" : "status-cancelled");
-        const feeText = a.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${a.fee}`;
+        const feeText = a.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${a.fee}`;
 
         tr.innerHTML = `
             <td><strong>${a.id}</strong></td>
@@ -662,7 +662,7 @@ function exportAppointmentsCSV() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `carepoint_appointments_${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `YourCare_appointments_${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     showToast("Exported appointments to CSV successfully!");
 }
@@ -763,7 +763,7 @@ function renderPatientDashboard(patient) {
         patApts.forEach(apt => {
             const tr = document.createElement("tr");
             const statusClass = apt.status === "Confirmed" ? "status-confirmed" : (apt.status === "Completed" ? "status-completed" : "status-cancelled");
-            const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
+            const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
 
             tr.innerHTML = `
                 <td><strong>${apt.id}</strong></td>
@@ -837,7 +837,7 @@ function openAppointmentModal() {
     doctors.forEach(doc => {
         const opt = document.createElement("option");
         opt.value = doc.id;
-        const feeStr = doc.fee === 0 ? "FREE OPD" : `₹${doc.fee}`;
+        const feeStr = doc.fee === 0 ? "FREE OPD" : `â‚¹${doc.fee}`;
         opt.textContent = `${doc.name} (${doc.department} - ${feeStr})`;
         doctorSelect.appendChild(opt);
     });
@@ -859,7 +859,7 @@ document.getElementById("aptFormDoctor").addEventListener("change", (e) => {
     const doc = doctors.find(d => d.id === docId);
     if (doc) {
         document.getElementById("aptFormDept").value = doc.department;
-        document.getElementById("aptFormFee").value = doc.fee === 0 ? "FREE (₹0)" : `₹${doc.fee}`;
+        document.getElementById("aptFormFee").value = doc.fee === 0 ? "FREE (â‚¹0)" : `â‚¹${doc.fee}`;
         if (doc.slots) {
             document.getElementById("aptFormTimeSlot").value = doc.slots.split(",")[0].trim();
         }
@@ -879,10 +879,10 @@ function displayReceiptModal(aptId) {
     document.getElementById("slipTime").textContent = apt.timeSlot;
     
     if (apt.fee === 0) {
-        document.getElementById("slipFee").textContent = "FREE (₹0)";
+        document.getElementById("slipFee").textContent = "FREE (â‚¹0)";
         document.getElementById("slipFeeNote").textContent = "General OPD - No counter charges";
     } else {
-        document.getElementById("slipFee").textContent = `₹${apt.fee}`;
+        document.getElementById("slipFee").textContent = `â‚¹${apt.fee}`;
         document.getElementById("slipFeeNote").textContent = "Payable at Hospital Counter";
     }
 
@@ -1101,3 +1101,4 @@ function showToast(message) {
         setTimeout(() => toast.remove(), 300);
     }, 3500);
 }
+

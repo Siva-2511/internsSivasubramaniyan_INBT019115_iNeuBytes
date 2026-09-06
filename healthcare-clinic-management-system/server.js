@@ -1,5 +1,5 @@
-/**
- * CarePoint Hospital & Clinic Management System
+﻿/**
+ * YourCare Hospital & Clinic Management System
  * Node.js + Express.js REST API Backend Server
  * Course ID: WBINB20726 (Major Project)
  */
@@ -522,9 +522,10 @@ app.get('/api/analytics', (req, res) => {
 // Start Server
 app.listen(PORT, () => {
     console.log(`=======================================================`);
-    console.log(` CarePoint Hospital Management System Backend Started`);
+    console.log(` YourCare Hospital Management System Backend Started`);
     console.log(` Running at: http://localhost:${PORT}`);
     console.log(` REST API Base: http://localhost:${PORT}/api`);
     console.log(` Course ID: WBINB20726 (Major Project)`);
     console.log(`=======================================================`);
 });
+

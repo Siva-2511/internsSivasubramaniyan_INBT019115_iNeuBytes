@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarePoint Hospital & Medical Center - Major Project Portal</title>
+    <title>YourCare Hospital & Medical Center - Major Project Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,11 +16,11 @@
     <div class="top-notice-bar">
         <div class="container d-flex-between">
             <div class="top-contact">
-                <span><i class="fa-solid fa-hospital"></i> CarePoint Hospital & Medical Center</span>
+                <span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Medical Center</span>
                 <span class="top-divider">|</span>
                 <span><i class="fa-solid fa-phone"></i> Emergency Desk: 044-24567890</span>
                 <span class="top-divider">|</span>
-                <span><i class="fa-solid fa-envelope"></i> reception@carepoint-hospital.org</span>
+                <span><i class="fa-solid fa-envelope"></i> reception@YourCare-hospital.org</span>
             </div>
             <div>
                 <span><i class="fa-solid fa-clock"></i> OPD Hours: Mon - Sat: 8:00 AM - 8:00 PM</span>
@@ -75,7 +75,7 @@
                         <span>Trauma & ICU Care</span>
                     </div>
                     <div class="hero-badge-item">
-                        <strong>₹0 Free OPD</strong>
+                        <strong>â‚¹0 Free OPD</strong>
                         <span>General Consultations</span>
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 CarePoint Hospital & Medical Center. Major Project - Course ID: WBINB20726.</p>
+                <p>&copy; 2026 YourCare Hospital & Medical Center. Major Project - Course ID: WBINB20726.</p>
                 <p>Designed for Healthcare Management & Internship Submission</p>
             </div>
         </div>
@@ -201,7 +201,7 @@
                 docs.forEach(doc => {
                     const card = document.createElement('div');
                     card.className = 'doctor-card';
-                    const feeDisplay = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD (₹0)</strong>` : `<strong>₹${doc.fee}</strong>`;
+                    const feeDisplay = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD (â‚¹0)</strong>` : `<strong>â‚¹${doc.fee}</strong>`;
                     card.innerHTML = `
                         <div class="doc-avatar"><i class="fa-solid ${doc.gender === 'female' ? 'fa-user-nurse' : 'fa-user-doctor'}"></i></div>
                         <div class="doc-info">
@@ -224,3 +224,4 @@
     </script>
 </body>
 </html>
+

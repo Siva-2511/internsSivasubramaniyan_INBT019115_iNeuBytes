@@ -1,9 +1,9 @@
-/**
- * CarePoint Hospital & Clinic Management System
+﻿/**
+ * YourCare Hospital & Clinic Management System
  * Authentication & Session Management
  */
 
-const AUTH_KEY = 'carepoint_user_session';
+const AUTH_KEY = 'YourCare_user_session';
 
 const Auth = {
     // Save session
@@ -73,3 +73,4 @@ const Auth = {
 document.addEventListener('DOMContentLoaded', () => {
     Auth.renderHeaderNav();
 });
+

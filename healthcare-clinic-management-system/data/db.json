@@ -1,9 +1,9 @@
-{
+﻿{
   "users": [
     {
       "id": "USR-ADM-01",
       "name": "Sivasubramaniyan G",
-      "email": "admin@carepoint.org",
+      "email": "admin@YourCare.org",
       "password": "admin123",
       "role": "admin",
       "phone": "044-24567890",
@@ -12,7 +12,7 @@
     {
       "id": "USR-DOC-104",
       "name": "Dr. Rajesh Sharma",
-      "email": "rajesh@carepoint.org",
+      "email": "rajesh@YourCare.org",
       "password": "doc123",
       "role": "doctor",
       "phone": "9876500104",
@@ -22,7 +22,7 @@
     {
       "id": "USR-DOC-101",
       "name": "Dr. Meenakshi Sundaram",
-      "email": "meenakshi@carepoint.org",
+      "email": "meenakshi@YourCare.org",
       "password": "doc123",
       "role": "doctor",
       "phone": "9876500101",
@@ -226,14 +226,87 @@
     }
   ],
   "departments": [
-    { "id": "DEP-01", "name": "General Medicine", "hod": "Dr. Meenakshi Sundaram", "doctorsCount": 2, "location": "Block A, Ground Floor", "feeType": "Free General OPD", "description": "Primary healthcare and general clinical consultations." },
-    { "id": "DEP-02", "name": "Pediatrics", "hod": "Dr. K. Radhakrishnan", "doctorsCount": 1, "location": "Block A, 1st Floor", "feeType": "Free General OPD", "description": "Comprehensive child care, nutrition, and pediatric immunization." },
-    { "id": "DEP-03", "name": "Cardiology", "hod": "Dr. Rajesh Sharma", "doctorsCount": 1, "location": "Block B, 2nd Floor", "feeType": "Specialist OPD", "description": "Heart disease diagnosis, hypertension control, ECG, and 2D Echo." },
-    { "id": "DEP-04", "name": "Dermatology", "hod": "Dr. Priya Nair", "doctorsCount": 1, "location": "Block B, 2nd Floor", "feeType": "Specialist OPD", "description": "Clinical dermatology, skin disorders, and allergy management." },
-    { "id": "DEP-05", "name": "Orthopedics", "hod": "Dr. Arun Venkataraman", "doctorsCount": 1, "location": "Block C, 1st Floor", "feeType": "Specialist OPD", "description": "Joint treatment, fracture management, and spine care." },
-    { "id": "DEP-06", "name": "Neurology", "hod": "Dr. Suresh Menon", "doctorsCount": 1, "location": "Block C, 3rd Floor", "feeType": "Specialist OPD", "description": "Neurological diagnosis, headache management, and stroke recovery." },
-    { "id": "DEP-07", "name": "Ophthalmology", "hod": "Dr. Karthik Iyer", "doctorsCount": 1, "location": "Block B, 1st Floor", "feeType": "Specialist OPD", "description": "Eye screening, vision correction, and cataract evaluation." },
-    { "id": "DEP-08", "name": "ENT", "hod": "Dr. Shalini Rao", "doctorsCount": 1, "location": "Block B, 2nd Floor", "feeType": "Specialist OPD", "description": "Ear, nose, and throat diagnosis and audiometry screening." }
+    {
+      "id": "DEP-01",
+      "name": "General Medicine",
+      "hod": "Dr. Meenakshi Sundaram",
+      "doctorsCount": 2,
+      "location": "Block A, Ground Floor",
+      "feeType": "Free General OPD",
+      "description": "Primary healthcare and general clinical consultations."
+    },
+    {
+      "id": "DEP-02",
+      "name": "Pediatrics",
+      "hod": "Dr. K. Radhakrishnan",
+      "doctorsCount": 1,
+      "location": "Block A, 1st Floor",
+      "feeType": "Free General OPD",
+      "description": "Comprehensive child care, nutrition, and pediatric immunization."
+    },
+    {
+      "id": "DEP-03",
+      "name": "Cardiology",
+      "hod": "Dr. Rajesh Sharma",
+      "doctorsCount": 1,
+      "location": "Block B, 2nd Floor",
+      "feeType": "Specialist OPD",
+      "description": "Heart disease diagnosis, hypertension control, ECG, and 2D Echo."
+    },
+    {
+      "id": "DEP-04",
+      "name": "Dermatology",
+      "hod": "Dr. Priya Nair",
+      "doctorsCount": 1,
+      "location": "Block B, 2nd Floor",
+      "feeType": "Specialist OPD",
+      "description": "Clinical dermatology, skin disorders, and allergy management."
+    },
+    {
+      "id": "DEP-05",
+      "name": "Orthopedics",
+      "hod": "Dr. Arun Venkataraman",
+      "doctorsCount": 1,
+      "location": "Block C, 1st Floor",
+      "feeType": "Specialist OPD",
+      "description": "Joint treatment, fracture management, and spine care."
+    },
+    {
+      "id": "DEP-06",
+      "name": "Neurology",
+      "hod": "Dr. Suresh Menon",
+      "doctorsCount": 1,
+      "location": "Block C, 3rd Floor",
+      "feeType": "Specialist OPD",
+      "description": "Neurological diagnosis, headache management, and stroke recovery."
+    },
+    {
+      "id": "DEP-07",
+      "name": "Ophthalmology",
+      "hod": "Dr. Karthik Iyer",
+      "doctorsCount": 1,
+      "location": "Block B, 1st Floor",
+      "feeType": "Specialist OPD",
+      "description": "Eye screening, vision correction, and cataract evaluation."
+    },
+    {
+      "id": "DEP-08",
+      "name": "ENT",
+      "hod": "Dr. Shalini Rao",
+      "doctorsCount": 1,
+      "location": "Block B, 2nd Floor",
+      "feeType": "Specialist OPD",
+      "description": "Ear, nose, and throat diagnosis and audiometry screening."
+    },
+    {
+      "id": "DEP-09",
+      "name": "dentist",
+      "hod": "abc",
+      "doctorsCount": 1,
+      "location": "f",
+      "feeType": "Free General OPD",
+      "description": "Specialized clinical services"
+    }
   ],
   "prescriptions": [
     {
