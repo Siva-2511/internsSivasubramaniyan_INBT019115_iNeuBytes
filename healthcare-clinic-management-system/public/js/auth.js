@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YourCare Hospital & Clinic Management System
  * Authentication & Session Management
  */

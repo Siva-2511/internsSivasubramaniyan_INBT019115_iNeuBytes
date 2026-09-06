@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YourCare Hospital - Healthcare Management Dashboard (Task 3)
  * Full CRUD Operations, LocalStorage Persistence & Dynamic Statistics
  */

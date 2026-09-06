@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YourCare Clinic - Healthcare Landing Page (Task 1)
  * Clean, Standard, Well-Structured JavaScript
  */

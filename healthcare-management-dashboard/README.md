@@ -1,4 +1,4 @@
-﻿# YourCare Hospital - Healthcare Management Dashboard (Task 3)
+# YourCare Hospital - Healthcare Management Dashboard (Task 3)
 **Course ID:** WBINB20726  
 **Internship Task 3:** Healthcare Management Dashboard
 

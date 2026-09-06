@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YourCare Hospital & Clinic Management System
  * Centralized REST API Client (communicating with Express backend)
  */

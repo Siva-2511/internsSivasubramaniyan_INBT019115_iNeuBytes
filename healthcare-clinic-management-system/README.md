@@ -1,4 +1,4 @@
-﻿# YourCare Hospital - Healthcare & Clinic Management System (Major Project)
+# YourCare Hospital - Healthcare & Clinic Management System (Major Project)
 **Course ID:** WBINB20726  
 **Internship Project:** Major Project â€” Full Stack Healthcare / Clinic Management System
 

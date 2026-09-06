@@ -1,4 +1,4 @@
-﻿# internsSivasubramaniyan_INBT019115_iNeuBytes
+# internsSivasubramaniyan_INBT019115_iNeuBytes
 
 > **iNeuBytes Web Development Internship — Final Submission**
 > Intern: Sivasubramaniyan G | Reg. No.: INBT019115 | Course ID: WBINB20726

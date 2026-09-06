@@ -1,4 +1,4 @@
-﻿# YourCare Hospital - Doctor Appointment Booking System
+# YourCare Hospital - Doctor Appointment Booking System
 **Course ID:** WBINB20726  
 **Internship Task 2:** Doctor Appointment Booking System
 

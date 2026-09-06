@@ -1,4 +1,4 @@
-﻿# YourCare Clinic - Healthcare & Clinic Landing Page (Task 1)
+# YourCare Clinic - Healthcare & Clinic Landing Page (Task 1)
 **Course ID:** WBINB20726  
 **Internship Task 1:** Healthcare / Clinic Landing Page
 

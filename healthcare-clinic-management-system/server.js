@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YourCare Hospital & Clinic Management System
  * Node.js + Express.js REST API Backend Server
  * Course ID: WBINB20726 (Major Project)

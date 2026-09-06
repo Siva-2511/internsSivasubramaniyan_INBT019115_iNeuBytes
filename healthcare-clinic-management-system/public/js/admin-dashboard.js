@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Admin Dashboard Controller
  * Full CRUD for Doctors, Patients, Appointments, Departments, Analytics & Reports
  */

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YourCare Hospital - Doctor Appointment Booking System
  * Clean, Standard, Human-Written JavaScript (No Complex AI Bloat)
  */

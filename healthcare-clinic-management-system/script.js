@@ -1,4 +1,4 @@
-﻿/**
+/**
  * YourCare Hospital - Healthcare & Clinic Management System (Major Project)
  * Multi-Role Support (Admin, Doctor, Patient), Full CRUD, Prescriptions & Relational LocalStorage
  */
