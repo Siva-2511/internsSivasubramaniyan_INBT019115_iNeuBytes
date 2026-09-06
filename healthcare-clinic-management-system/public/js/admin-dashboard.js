@@ -94,7 +94,7 @@ function renderOverview(analytics) {
     allAppointments.slice(0, 5).forEach(apt => {
         const tr = document.createElement('tr');
         const statusClass = apt.status === 'Confirmed' ? 'status-confirmed' : (apt.status === 'Completed' ? 'status-completed' : 'status-cancelled');
-        const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
+        const feeText = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
 
         tr.innerHTML = `
             <td><strong>${apt.id}</strong></td>
@@ -111,7 +111,7 @@ function renderOverview(analytics) {
     // Dept Progress Bars
     const deptList = document.getElementById('deptDistributionList');
     deptList.innerHTML = '';
-    allDepartments.slice(0, 5).forEach(dept => {
+    allDepartments.forEach(dept => {
         const count = allDoctors.filter(d => d.department.toLowerCase() === dept.name.toLowerCase()).length;
         const perc = allDoctors.length > 0 ? Math.round((count / allDoctors.length) * 100) : 0;
 
@@ -124,7 +124,7 @@ function renderOverview(analytics) {
                 <span>${count} Doctors (${perc}%)</span>
             </div>
             <div style="height: 6px; background: var(--bg-muted); border-radius: var(--radius-full); overflow: hidden;">
-                <div style="height: 100%; width: ${Math.max(perc, 15)}%; background: var(--brand-green);"></div>
+                <div style="height: 100%; width: ${Math.max(perc, 10)}%; background: var(--brand-green);"></div>
             </div>
         `;
         deptList.appendChild(item);
@@ -158,7 +158,7 @@ function renderDoctorsTable() {
 
     filtered.forEach(doc => {
         const tr = document.createElement('tr');
-        const feeText = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD</strong>` : `â‚¹${doc.fee}`;
+        const feeText = doc.fee === 0 ? `<strong style="color: var(--brand-green);">FREE OPD</strong>` : `₹${doc.fee}`;
 
         tr.innerHTML = `
             <td><strong>${doc.id}</strong></td>
@@ -305,7 +305,7 @@ function renderAppointmentsTable() {
     filtered.forEach(a => {
         const tr = document.createElement('tr');
         const statusClass = a.status === 'Confirmed' ? 'status-confirmed' : (a.status === 'Completed' ? 'status-completed' : 'status-cancelled');
-        const feeText = a.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${a.fee}`;
+        const feeText = a.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${a.fee}`;
 
         tr.innerHTML = `
             <td><strong>${a.id}</strong></td>
@@ -356,7 +356,7 @@ function openAppointmentModal() {
     allDoctors.forEach(doc => {
         const opt = document.createElement('option');
         opt.value = doc.id;
-        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : 'â‚¹' + doc.fee})`;
+        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : '₹' + doc.fee})`;
         select.appendChild(opt);
     });
 
@@ -593,4 +593,4 @@ function setupEventListeners() {
 function closeModal(id) {
     document.getElementById(id).classList.remove('active');
 }
-
+

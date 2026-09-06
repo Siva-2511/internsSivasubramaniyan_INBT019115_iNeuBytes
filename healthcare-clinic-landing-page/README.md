@@ -57,4 +57,4 @@ healthcare-clinic-landing-page/
 1. Open the folder `healthcare-clinic-landing-page`.
 2. Double-click `index.html` to open directly in any web browser.
 3. No build tools or Node.js required.
-
+

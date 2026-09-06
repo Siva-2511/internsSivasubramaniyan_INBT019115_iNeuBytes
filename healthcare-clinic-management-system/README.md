@@ -8,7 +8,7 @@
 The **YourCare Healthcare & Clinic Management System** is a complete, full-stack web application developed using **Node.js, Express.js REST APIs, JSON Database persistence, semantic HTML5, modern CSS3, and JavaScript (ES6+)**.
 
 The project implements **Role-Based Access Control (RBAC)** with separate modules and dashboards for:
-1. **Registered Patients**: Profile management, OPD appointment booking (Free General OPD â‚¹0 & Specialist OPD), appointment history tracking with printable slips, and electronic medical prescription records.
+1. **Registered Patients**: Profile management, OPD appointment booking (Free General OPD ₹0 & Specialist OPD), appointment history tracking with printable slips, and electronic medical prescription records.
 2. **Consultant Doctors**: Outpatient consultation queue, patient status updates (*Confirmed*, *Completed*, *Cancelled*), clinical diagnosis recording, and electronic prescription writing.
 3. **Hospital Administrators**: Full hospital operations dashboard with real-time analytics, Doctor Management (Full CRUD), Patient Records Management (Full CRUD), Appointment Management (Full CRUD & CSV Export), Department Directory (Full CRUD), and printable administrative reports.
 
@@ -35,7 +35,7 @@ The project implements **Role-Based Access Control (RBAC)** with separate module
 
 ### 3. Patient Self-Service Portal (`patient-dashboard.html`)
 - Patient profile banner with medical care metadata.
-- Interactive OPD appointment booking modal with dynamic doctor selector, time slot chips, and automated fee calculation (Free â‚¹0 vs Paid).
+- Interactive OPD appointment booking modal with dynamic doctor selector, time slot chips, and automated fee calculation (Free ₹0 vs Paid).
 - My Appointments list with inline status tracking, cancellation, and printable digital receipts (`APT-2026-XXXX`).
 - Electronic Medical Records & Prescriptions diagnosed by hospital physicians.
 
@@ -107,4 +107,4 @@ healthcare-clinic-management-system/
    - **Admin:** `admin@YourCare.org` / `admin123` (or click "Admin (Sivasubramaniyan G)" demo button on `login.html`)
    - **Doctor:** `rajesh@YourCare.org` / `doc123` (or click "Doctor (Dr. Rajesh Sharma)" demo button)
    - **Patient:** `sivas@example.com` / `pat123` (or click "Patient (Sivasubramaniyan G)" demo button)
-
+

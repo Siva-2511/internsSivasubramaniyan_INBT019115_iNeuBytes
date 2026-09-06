@@ -1,241 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YourCare Hospital - Account Registration</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-    <!-- TOP NOTICE BAR -->
-    <div class="top-notice-bar">
-        <div class="container d-flex-between">
-            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Clinic Management System</span></div>
-            <div><span><i class="fa-solid fa-phone"></i> Helpline: 044-24567890</span></div>
-        </div>
-    </div>
-
-    <!-- MAIN NAVBAR -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
-                <div class="logo-text">
-                    <span>Your<strong>Care</strong></span>
-                    <small>Healthcare Portal</small>
-                </div>
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="departments.html">Departments</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <div class="nav-actions">
-                <a href="login.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- AUTH CARD CONTAINER -->
-    <div class="auth-page-wrapper">
-        <div class="auth-card" style="max-width: 540px;">
-            
-            <div class="auth-header">
-                <h2>Create an Account</h2>
-                <p>Register to book appointments, access prescriptions, or join medical staff</p>
-            </div>
-
-            <!-- Role Selector Tabs -->
-            <div class="role-tabs">
-                <button class="role-tab-btn active" data-role="patient" onclick="setRegRole('patient')"><i class="fa-solid fa-user"></i> Patient Registration</button>
-                <button class="role-tab-btn" data-role="doctor" onclick="setRegRole('doctor')"><i class="fa-solid fa-user-doctor"></i> Doctor Registration</button>
-            </div>
-
-            <div id="regAlert" style="display: none; padding: 0.65rem 0.85rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1rem;"></div>
-
-            <!-- Registration Form -->
-            <form id="registerForm">
-                <input type="hidden" id="regRole" value="patient">
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="regName" placeholder="e.g. Ramesh Kumar" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number * (10 Digits)</label>
-                        <input type="tel" id="regPhone" placeholder="e.g. 9876543210" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Email Address *</label>
-                        <input type="email" id="regEmail" placeholder="e.g. patient@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password *</label>
-                        <input type="password" id="regPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
-                    </div>
-                </div>
-
-                <!-- Patient Specific Fields -->
-                <div id="patientSpecificFields">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Age *</label>
-                            <input type="number" id="regAge" min="1" max="120" placeholder="e.g. 28">
-                        </div>
-                        <div class="form-group">
-                            <label>Gender *</label>
-                            <select id="regGender">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Blood Group</label>
-                        <select id="regBlood">
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Doctor Specific Fields -->
-                <div id="doctorSpecificFields" style="display: none;">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Department *</label>
-                            <select id="regDept">
-                                <option value="General Medicine">General Medicine</option>
-                                <option value="Pediatrics">Pediatrics</option>
-                                <option value="Cardiology">Cardiology</option>
-                                <option value="Dermatology">Dermatology</option>
-                                <option value="Orthopedics">Orthopedics</option>
-                                <option value="Neurology">Neurology</option>
-                                <option value="Ophthalmology">Ophthalmology</option>
-                                <option value="ENT">ENT</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Medical Qualification *</label>
-                            <input type="text" id="regQual" placeholder="e.g. MBBS, MD">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Consultation Fee (â‚¹) (0 for Free General OPD)</label>
-                        <input type="number" id="regFee" min="0" placeholder="0 or 500" value="0">
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="regSubmitBtn">
-                    <i class="fa-solid fa-user-plus"></i> Create Account
-                </button>
-            </form>
-
-            <div style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
-                Already have an account? <a href="login.html" style="color: var(--brand-green); font-weight: 600;">Sign In</a>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="js/api.js"></script>
-    <script src="js/auth.js"></script>
-    <script>
-        let currentRegRole = 'patient';
-
-        function setRegRole(role) {
-            currentRegRole = role;
-            document.getElementById('regRole').value = role;
-            document.querySelectorAll('.role-tab-btn').forEach(btn => {
-                if (btn.getAttribute('data-role') === role) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-
-            if (role === 'patient') {
-                document.getElementById('patientSpecificFields').style.display = 'block';
-                document.getElementById('doctorSpecificFields').style.display = 'none';
-            } else {
-                document.getElementById('patientSpecificFields').style.display = 'none';
-                document.getElementById('doctorSpecificFields').style.display = 'block';
-            }
-        }
-
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const alertBox = document.getElementById('regAlert');
-            const submitBtn = document.getElementById('regSubmitBtn');
-            alertBox.style.display = 'none';
-
-            const phone = document.getElementById('regPhone').value.trim();
-            if (!/^\d{10}$/.test(phone)) {
-                alertBox.textContent = 'Please enter a valid 10-digit mobile number.';
-                alertBox.style.display = 'block';
-                alertBox.style.backgroundColor = 'var(--color-danger-bg)';
-                alertBox.style.color = 'var(--color-danger)';
-                return;
-            }
-
-            const data = {
-                name: document.getElementById('regName').value.trim(),
-                phone: phone,
-                email: document.getElementById('regEmail').value.trim(),
-                password: document.getElementById('regPassword').value,
-                role: currentRegRole,
-                age: document.getElementById('regAge').value,
-                gender: document.getElementById('regGender').value,
-                bloodGroup: document.getElementById('regBlood').value,
-                department: document.getElementById('regDept').value,
-                qualification: document.getElementById('regQual').value,
-                fee: document.getElementById('regFee').value
-            };
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...`;
-
-            try {
-                const res = await API.register(data);
-                if (res.success) {
-                    alertBox.textContent = 'Account created successfully! Redirecting to login...';
-                    alertBox.style.display = 'block';
-                    alertBox.style.backgroundColor = 'var(--color-success-bg)';
-                    alertBox.style.color = 'var(--color-success)';
-                    setTimeout(() => {
-                        window.location.href = `login.html?role=${currentRegRole}`;
-                    }, 1200);
-                } else {
-                    alertBox.textContent = res.message || 'Registration failed.';
-                    alertBox.style.display = 'block';
-                    alertBox.style.backgroundColor = 'var(--color-danger-bg)';
-                    alertBox.style.color = 'var(--color-danger)';
-                }
-            } catch(err) {
-                console.error(err);
-                alertBox.textContent = 'Server connection error.';
-                alertBox.style.display = 'block';
-                alertBox.style.backgroundColor = 'var(--color-danger-bg)';
-                alertBox.style.color = 'var(--color-danger)';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i> Create Account`;
-            }
-        });
-    </script>
-</body>
-</html>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YourCare Hospital - Account Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- TOP NOTICE BAR -->
+    <div class="top-notice-bar">
+        <div class="container d-flex-between">
+            <div><span><i class="fa-solid fa-hospital"></i> YourCare Hospital & Clinic Management System</span></div>
+            <div><span><i class="fa-solid fa-phone"></i> Helpline: 044-24567890</span></div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="logo-text">
+                    <span>Your<strong>Care</strong></span>
+                    <small>Healthcare Portal</small>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- AUTH CARD CONTAINER -->
+    <div class="auth-page-wrapper">
+        <div class="auth-card" style="max-width: 540px;">
+            
+            <div class="auth-header">
+                <h2>Create an Account</h2>
+                <p>Register to book appointments, access prescriptions, or join medical staff</p>
+            </div>
+
+            <!-- Role Selector Tabs -->
+            <div class="role-tabs">
+                <button class="role-tab-btn active" data-role="patient" onclick="setRegRole('patient')"><i class="fa-solid fa-user"></i> Patient Registration</button>
+                <button class="role-tab-btn" data-role="doctor" onclick="setRegRole('doctor')"><i class="fa-solid fa-user-doctor"></i> Doctor Registration</button>
+            </div>
+
+            <div id="regAlert" style="display: none; padding: 0.65rem 0.85rem; border-radius: var(--radius-md); font-size: 0.85rem; margin-bottom: 1rem;"></div>
+
+            <!-- Registration Form -->
+            <form id="registerForm">
+                <input type="hidden" id="regRole" value="patient">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="regName" placeholder="e.g. Ramesh Kumar" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number * (10 Digits)</label>
+                        <input type="tel" id="regPhone" placeholder="e.g. 9876543210" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="regEmail" placeholder="e.g. patient@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password *</label>
+                        <input type="password" id="regPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" required>
+                    </div>
+                </div>
+
+                <!-- Patient Specific Fields -->
+                <div id="patientSpecificFields">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Age *</label>
+                            <input type="number" id="regAge" min="1" max="120" placeholder="e.g. 28">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender *</label>
+                            <select id="regGender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <select id="regBlood">
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Doctor Specific Fields -->
+                <div id="doctorSpecificFields" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Department *</label>
+                            <select id="regDept">
+                                <option value="General Medicine">General Medicine</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                                <option value="Cardiology">Cardiology</option>
+                                <option value="Dermatology">Dermatology</option>
+                                <option value="Orthopedics">Orthopedics</option>
+                                <option value="Neurology">Neurology</option>
+                                <option value="Ophthalmology">Ophthalmology</option>
+                                <option value="ENT">ENT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Medical Qualification *</label>
+                            <input type="text" id="regQual" placeholder="e.g. MBBS, MD">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Consultation Fee (₹) (0 for Free General OPD)</label>
+                        <input type="number" id="regFee" min="0" placeholder="0 or 500" value="0">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="regSubmitBtn">
+                    <i class="fa-solid fa-user-plus"></i> Create Account
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+                Already have an account? <a href="login.html" style="color: var(--brand-green); font-weight: 600;">Sign In</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        let currentRegRole = 'patient';
+
+        function setRegRole(role) {
+            currentRegRole = role;
+            document.getElementById('regRole').value = role;
+            document.querySelectorAll('.role-tab-btn').forEach(btn => {
+                if (btn.getAttribute('data-role') === role) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            if (role === 'patient') {
+                document.getElementById('patientSpecificFields').style.display = 'block';
+                document.getElementById('doctorSpecificFields').style.display = 'none';
+            } else {
+                document.getElementById('patientSpecificFields').style.display = 'none';
+                document.getElementById('doctorSpecificFields').style.display = 'block';
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const alertBox = document.getElementById('regAlert');
+            const submitBtn = document.getElementById('regSubmitBtn');
+            alertBox.style.display = 'none';
+
+            const phone = document.getElementById('regPhone').value.trim();
+            if (!/^\d{10}$/.test(phone)) {
+                alertBox.textContent = 'Please enter a valid 10-digit mobile number.';
+                alertBox.style.display = 'block';
+                alertBox.style.backgroundColor = 'var(--color-danger-bg)';
+                alertBox.style.color = 'var(--color-danger)';
+                return;
+            }
+
+            const data = {
+                name: document.getElementById('regName').value.trim(),
+                phone: phone,
+                email: document.getElementById('regEmail').value.trim(),
+                password: document.getElementById('regPassword').value,
+                role: currentRegRole,
+                age: document.getElementById('regAge').value,
+                gender: document.getElementById('regGender').value,
+                bloodGroup: document.getElementById('regBlood').value,
+                department: document.getElementById('regDept').value,
+                qualification: document.getElementById('regQual').value,
+                fee: document.getElementById('regFee').value
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...`;
+
+            try {
+                const res = await API.register(data);
+                if (res.success) {
+                    alertBox.textContent = 'Account created successfully! Redirecting to login...';
+                    alertBox.style.display = 'block';
+                    alertBox.style.backgroundColor = 'var(--color-success-bg)';
+                    alertBox.style.color = 'var(--color-success)';
+                    setTimeout(() => {
+                        window.location.href = `login.html?role=${currentRegRole}`;
+                    }, 1200);
+                } else {
+                    alertBox.textContent = res.message || 'Registration failed.';
+                    alertBox.style.display = 'block';
+                    alertBox.style.backgroundColor = 'var(--color-danger-bg)';
+                    alertBox.style.color = 'var(--color-danger)';
+                }
+            } catch(err) {
+                console.error(err);
+                alertBox.textContent = 'Server connection error.';
+                alertBox.style.display = 'block';
+                alertBox.style.backgroundColor = 'var(--color-danger-bg)';
+                alertBox.style.color = 'var(--color-danger)';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i> Create Account`;
+            }
+        });
+    </script>
+</body>
+</html>
+

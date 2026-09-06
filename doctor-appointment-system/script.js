@@ -249,7 +249,7 @@ function formatFeeDisplay(fee) {
     if (fee === 0) {
         return "FREE (General OPD)";
     }
-    return `â‚¹${fee}`;
+    return `₹${fee}`;
 }
 
 // ==========================================
@@ -343,7 +343,7 @@ function populateDoctorDropdown() {
     DOCTORS_DATA.forEach(doc => {
         const opt = document.createElement("option");
         opt.value = doc.id;
-        const feeText = doc.fee === 0 ? "FREE OPD" : `â‚¹${doc.fee}`;
+        const feeText = doc.fee === 0 ? "FREE OPD" : `₹${doc.fee}`;
         opt.textContent = `${doc.name} - ${doc.department} (${feeText})`;
         bookDoctorSelect.appendChild(opt);
     });
@@ -411,7 +411,7 @@ function renderDoctorCards(doctorsList) {
 
         const feeHTML = doc.fee === 0
             ? `<strong class="free-opd-badge"><i class="fa-solid fa-gift"></i> FREE (OPD)</strong>`
-            : `<strong>â‚¹${doc.fee}</strong>`;
+            : `<strong>₹${doc.fee}</strong>`;
 
         card.innerHTML = `
             <div class="doc-card-header">
@@ -495,7 +495,7 @@ function openDoctorDetailsModal(doctorId) {
     if (!doc) return;
 
     const iconGenderClass = doc.gender === "female" ? "fa-user-nurse" : "fa-user-doctor";
-    const feeDisplay = doc.fee === 0 ? "FREE (Charitable / General OPD)" : `â‚¹${doc.fee} (Payable at counter)`;
+    const feeDisplay = doc.fee === 0 ? "FREE (Charitable / General OPD)" : `₹${doc.fee} (Payable at counter)`;
 
     doctorModalContent.innerHTML = `
         <div class="doc-modal-header">
@@ -586,7 +586,7 @@ function handleDoctorSelectChange() {
         bookDepartment.value = "";
         selectedDoctorPreview.style.display = "none";
         sumDoctor.textContent = "Not selected";
-        sumFee.textContent = "â‚¹0";
+        sumFee.textContent = "₹0";
         timeSlotsContainer.innerHTML = '<span class="slot-hint">Please choose a doctor first to load available time slots</span>';
         selectedSlotInput.value = "";
     }
@@ -778,7 +778,7 @@ function handleAppointmentSubmit(e) {
     selectedSlotInput.value = "";
     sumDoctor.textContent = "Not selected";
     sumDateTime.textContent = "Not selected";
-    sumFee.textContent = "â‚¹0";
+    sumFee.textContent = "₹0";
 
     renderAppointmentsHistory();
     displayConfirmationModal(newAppointment);
@@ -807,10 +807,10 @@ function displayConfirmationModal(apt) {
     receiptEmail.textContent = apt.patientEmail;
 
     if (apt.fee === 0) {
-        receiptFee.textContent = "FREE (â‚¹0)";
+        receiptFee.textContent = "FREE (₹0)";
         receiptFeeNote.textContent = "General OPD - No counter fee";
     } else {
-        receiptFee.textContent = `â‚¹${apt.fee}`;
+        receiptFee.textContent = `₹${apt.fee}`;
         receiptFeeNote.textContent = "Payable at Hospital Reception";
     }
 
@@ -854,7 +854,7 @@ function renderAppointmentsHistory() {
             });
 
             const statusClass = apt.status === "Confirmed" ? "status-confirmed" : "status-cancelled";
-            const feeString = apt.fee === 0 ? "FREE OPD" : `â‚¹${apt.fee}`;
+            const feeString = apt.fee === 0 ? "FREE OPD" : `₹${apt.fee}`;
 
             card.innerHTML = `
                 <div class="apt-col-doc">
@@ -1109,4 +1109,4 @@ function resetAllFilters() {
     updateActiveDeptCard("All");
     filterAndRenderDoctors();
 }
-
+

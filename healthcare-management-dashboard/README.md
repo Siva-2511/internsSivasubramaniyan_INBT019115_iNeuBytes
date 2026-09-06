@@ -22,7 +22,7 @@ The **YourCare Healthcare Management Dashboard** is a responsive, web-based hosp
 - **Add Doctor**: Modal form to add a new doctor to the roster.
 - **Edit Doctor**: Update doctor details, room number, or fee.
 - **Delete Doctor**: Remove doctor with safety confirmation prompt.
-- **Multi-Filter**: Live search by name/room, filter by department, and filter by Fee Type (Free OPD â‚¹0 vs Paid Specialists).
+- **Multi-Filter**: Live search by name/room, filter by department, and filter by Fee Type (Free OPD ₹0 vs Paid Specialists).
 
 ### 3. Patient Management (Full CRUD)
 - **View Patients**: Patient records table with Patient ID, Full Name, Age/Gender, Phone, Email, Blood Group, and Registration Date.
@@ -71,4 +71,4 @@ healthcare-management-dashboard/
 1. Open the folder `healthcare-management-dashboard`.
 2. Double-click `index.html` to open directly in any modern web browser.
 3. No external build tools, Node.js, or complex setups required.
-
+

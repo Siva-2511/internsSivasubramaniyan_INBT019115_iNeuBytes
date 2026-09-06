@@ -400,7 +400,7 @@ function renderDashboardOverview() {
         recentList.forEach(apt => {
             const tr = document.createElement("tr");
             const statusClass = apt.status === "Confirmed" ? "status-confirmed" : (apt.status === "Completed" ? "status-completed" : "status-cancelled");
-            const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
+            const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
 
             tr.innerHTML = `
                 <td><strong>${apt.id}</strong></td>
@@ -443,7 +443,7 @@ function renderDashboardOverview() {
     doctors.slice(0, 4).forEach(doc => {
         const card = document.createElement("div");
         card.className = "on-duty-card";
-        const feeText = doc.fee === 0 ? "FREE OPD" : `â‚¹${doc.fee}`;
+        const feeText = doc.fee === 0 ? "FREE OPD" : `₹${doc.fee}`;
 
         card.innerHTML = `
             <div class="on-duty-avatar">
@@ -493,7 +493,7 @@ function renderDoctorsTable() {
 
     filtered.forEach(doc => {
         const tr = document.createElement("tr");
-        const feeDisplay = doc.fee === 0 ? `<strong style="color: var(--brand-green);"><i class="fa-solid fa-gift"></i> FREE OPD</strong>` : `<strong>â‚¹${doc.fee}</strong>`;
+        const feeDisplay = doc.fee === 0 ? `<strong style="color: var(--brand-green);"><i class="fa-solid fa-gift"></i> FREE OPD</strong>` : `<strong>₹${doc.fee}</strong>`;
 
         tr.innerHTML = `
             <td><strong>${doc.id}</strong></td>
@@ -680,7 +680,7 @@ function renderAppointmentsTable() {
     filtered.forEach(apt => {
         const tr = document.createElement("tr");
         const statusClass = apt.status === "Confirmed" ? "status-confirmed" : (apt.status === "Completed" ? "status-completed" : "status-cancelled");
-        const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `â‚¹${apt.fee}`;
+        const feeDisplay = apt.fee === 0 ? `<strong style="color: var(--brand-green);">FREE</strong>` : `₹${apt.fee}`;
 
         tr.innerHTML = `
             <td><strong>${apt.id}</strong></td>
@@ -739,7 +739,7 @@ function openAppointmentModal() {
     doctors.forEach(doc => {
         const opt = document.createElement("option");
         opt.value = doc.id;
-        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : 'â‚¹' + doc.fee})`;
+        opt.textContent = `${doc.name} (${doc.department} - ${doc.fee === 0 ? 'FREE' : '₹' + doc.fee})`;
         doctorSelect.appendChild(opt);
     });
 
@@ -1030,4 +1030,4 @@ function setupSearchAndFilterHandlers() {
     // Department search
     document.getElementById("departmentSearchInput").addEventListener("input", renderDepartmentsTable);
 }
-
+
