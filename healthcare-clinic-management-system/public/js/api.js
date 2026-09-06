@@ -130,6 +130,11 @@ const API = {
         return await res.json();
     },
 
+    async deleteDepartment(id) {
+        const res = await fetch(`${API_BASE}/departments/${id}`, { method: 'DELETE' });
+        return await res.json();
+    },
+
     // Prescriptions
     async getPrescriptions(params = {}) {
         const query = new URLSearchParams(params).toString();

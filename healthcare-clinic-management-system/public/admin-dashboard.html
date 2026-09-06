@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Careme Hospital - Administrator Management Dashboard</title>
+    <title>YourCare Hospital - Administrator Management Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
             <a href="index.html" class="logo">
                 <div class="logo-icon"><i class="fa-solid fa-hospital"></i></div>
                 <div class="logo-text">
-                    <span>Care<strong>Point</strong></span>
+                    <span>Your<strong>Care</strong></span>
                     <small>Administrator Portal</small>
                 </div>
             </a>
@@ -35,7 +35,33 @@
                 <li><a href="departments.html">Departments</a></li>
                 <li><a href="contact.html">Emergency & Contact</a></li>
             </ul>
-            <div class="nav-actions">
+            <div class="nav-actions" style="display: flex; gap: 0.65rem; align-items: center;">
+                <div class="notification-dropdown-wrapper" style="position: relative;">
+                    <button class="btn btn-outline btn-sm notification-btn" onclick="toggleNotificationMenu()" title="Notifications" style="position: relative;">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notification-badge" id="adminNotifBadge" style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border-radius: 50%; font-size: 0.65rem; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-weight: bold;">3</span>
+                    </button>
+                    <div class="notification-menu" id="adminNotifMenu" style="display: none; position: absolute; right: 0; top: 110%; width: 320px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 1000; padding: 0.75rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
+                            <strong style="color: #0f172a; font-size: 0.9rem;"><i class="fa-solid fa-bell" style="color: var(--brand-green);"></i> System Alerts</strong>
+                            <span class="badge" style="background: #ecfdf5; color: #059669; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px;">Live updates</span>
+                        </div>
+                        <div id="notifList" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 240px; overflow-y: auto;">
+                            <div style="font-size: 0.8rem; padding: 0.4rem; border-radius: 6px; background: #f8fafc;">
+                                <strong style="color: #059669; display: block;">New OPD Booking</strong>
+                                <span style="color: #475569;">Patient Sivasubramaniyan G booked General Medicine.</span>
+                            </div>
+                            <div style="font-size: 0.8rem; padding: 0.4rem; border-radius: 6px; background: #f8fafc;">
+                                <strong style="color: #2563eb; display: block;">Doctor Duty Alert</strong>
+                                <span style="color: #475569;">Dr. Rajesh Sharma checked into Cardiology.</span>
+                            </div>
+                            <div style="font-size: 0.8rem; padding: 0.4rem; border-radius: 6px; background: #f8fafc;">
+                                <strong style="color: #d97706; display: block;">Prescription Issued</strong>
+                                <span style="color: #475569;">Digital prescription generated for APT-2026-001.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button onclick="Auth.logout()" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
             </div>
         </div>
@@ -48,7 +74,7 @@
         <div class="user-banner">
             <div>
                 <h2 id="admBannerName">Sivasubramaniyan G</h2>
-                <p>Hospital Administrator &bull; Careme Hospital & Medical Center</p>
+                <p>Hospital Administrator &bull; YourCare Hospital & Medical Center</p>
             </div>
             <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
                 <button class="btn btn-primary" onclick="openDoctorModal()"><i class="fa-solid fa-user-plus"></i> Add Doctor</button>
@@ -285,6 +311,7 @@
                                 <th>Doctors Count</th>
                                 <th>Room Location</th>
                                 <th>Fee Structure</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="adminDeptsTableBody"></tbody>

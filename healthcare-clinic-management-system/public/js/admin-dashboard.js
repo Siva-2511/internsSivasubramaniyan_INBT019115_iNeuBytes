@@ -401,10 +401,49 @@ function renderDepartmentsTable() {
             <td><span class="status-pill status-confirmed">${count} Specialists</span></td>
             <td>${dep.location}</td>
             <td><span class="status-pill ${dep.feeType.includes('Free') ? 'status-confirmed' : 'status-completed'}">${dep.feeType}</span></td>
+            <td>
+                <button class="btn btn-outline btn-sm" style="color: var(--color-danger);" onclick="deleteDepartment('${dep.id}')" title="Delete Department">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+            </td>
         `;
         tableBody.appendChild(tr);
     });
 }
+
+async function deleteDepartment(id) {
+    if (confirm(`Are you sure you want to remove department ${id}?`)) {
+        try {
+            await API.deleteDepartment(id);
+            showToast(`Department ${id} deleted successfully.`);
+            await refreshAllData();
+        } catch(e) {
+            console.error(e);
+            showToast('Failed to delete department.', 'error');
+        }
+    }
+}
+
+function toggleNotificationMenu() {
+    const menu = document.getElementById('adminNotifMenu');
+    const badge = document.getElementById('adminNotifBadge');
+    if (!menu) return;
+    if (menu.style.display === 'none' || !menu.style.display) {
+        menu.style.display = 'block';
+        if (badge) badge.style.display = 'none';
+    } else {
+        menu.style.display = 'none';
+    }
+}
+
+// Close notification menu on outside click
+document.addEventListener('click', (e) => {
+    const wrapper = document.querySelector('.notification-dropdown-wrapper');
+    const menu = document.getElementById('adminNotifMenu');
+    if (wrapper && menu && !wrapper.contains(e.target)) {
+        menu.style.display = 'none';
+    }
+});
 
 function openDeptModal() {
     document.getElementById('admDeptForm').reset();

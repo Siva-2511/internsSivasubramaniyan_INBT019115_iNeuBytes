@@ -434,6 +434,15 @@ app.post('/api/departments', (req, res) => {
     res.status(201).json({ success: true, message: 'Department created successfully.', data: newDept });
 });
 
+// DELETE /api/departments/:id
+app.delete('/api/departments/:id', (req, res) => {
+    const { id } = req.params;
+    const db = readDatabase();
+    db.departments = db.departments.filter(d => d.id !== id);
+    writeDatabase(db);
+    res.json({ success: true, message: `Department ${id} removed successfully.` });
+});
+
 // ==========================================
 // 6. PRESCRIPTIONS & MEDICAL RECORDS API
 // ==========================================
